@@ -1,4 +1,23 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: Golos, sans-serif;
+}
+
+:root {
+  --accent2: #FF9700;
+  --primary400: #BDBDBD;
+  --primary200: #F8FBFB;
+  --background: #F0F5F6;
+  --primary300: #BABABA;
+  --base-black: #333;
+  --primary600: #919191;
+  --neutrals100: #F6F6F6;
+  --primary1000:#393939 ;
+  --neutrals400: #B5B5B5;
+}
+
+@font-face {
+  font-family: Golos;
+  src: local('Golos'), url('src/assets/fonts/golos-text_regular.ttf') format('ttf');
 }

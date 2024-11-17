@@ -4,7 +4,7 @@ import MainScreen from "./pages/mainscreen/MainScreen";
 function App() {
   return (
     <Routes>
-        <Route path="mainscreen" element={<MainScreen />} />
+        <Route path="" element={<MainScreen />}/>
     </Routes>
   );
 }

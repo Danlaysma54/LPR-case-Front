@@ -1,0 +1,15 @@
+.add-button {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 84px;
+  height: 36px;
+  font-family: Golos, sans-serif;
+  color: white;
+  background-color: var(--accent2);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+}

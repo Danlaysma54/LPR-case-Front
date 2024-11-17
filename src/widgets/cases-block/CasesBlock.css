@@ -1,0 +1,15 @@
+.cases-block {
+  width: 100%;
+  max-width: 100%;
+  padding: 27px 22px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.cases-block__cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}

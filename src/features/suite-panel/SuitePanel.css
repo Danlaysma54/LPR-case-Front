@@ -1,0 +1,21 @@
+.suite-panel {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 8px 16px;
+  color: var(--primary1000);
+  background-color: var(--neutrals100);
+  border-radius: 12px;
+}
+
+.suite-panel__checkbox[type="checkbox"] {
+  width: 20px; height: 20px;
+  appearance: none;
+  background: white;
+  border: 2px solid var(--neutrals400);
+  border-radius: 2px;
+}
+
+.suite-panel__checkbox[type="checkbox"]:checked {
+  background: var(--accent2);
+}
