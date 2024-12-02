@@ -1,0 +1,34 @@
+.repository-header {
+  display: flex;
+  flex-direction: column;
+  gap: 25px ;
+  max-width: 100%;
+  padding-top: 32px;
+  padding-bottom: 20px;
+  padding-left: 32px;
+  background-color: var(--background);
+}
+
+.repository-header__info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.repository-name__info--name {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--base-black);
+}
+
+.repository-name__info--cases {
+  margin-top: 3px;
+  color: var(--primary300);
+  text-align: center;
+}
+
+.repository-header__buttons {
+  display: flex;
+  gap: 8px;
+}

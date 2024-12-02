@@ -1,0 +1,25 @@
+.suites-block {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 392px;
+  padding: 27px 19px;
+}
+
+.suites-block__header {
+  display: flex;
+  gap: 11px;
+  margin-bottom: 19px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--base-black);
+}
+
+.suites-block__suites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 30px;
+  margin-left: 32px;
+  list-style: none;
+}

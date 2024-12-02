@@ -1,0 +1,20 @@
+.suite {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer ;
+}
+
+.suite__left-side {
+  display: flex;
+  gap: 4px;
+}
+
+.suite__child-count {
+  color: var(--primary600);
+}
+
+.suite__left-side--arrow {
+  position: absolute;
+  margin-top: -4px;
+  margin-left: -35px;
+}

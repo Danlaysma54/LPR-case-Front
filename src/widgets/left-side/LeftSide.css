@@ -1,0 +1,7 @@
+.left-side {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 196px;
+  background-color: var(--primary200);
+  border-right: 0.5px solid var(--primary400);
+}
