@@ -1,14 +1,22 @@
 import './SuitesBlock.css'
 
 import MenuIcon from "src/assets/svgs/MenuIcon";
-import { SuiteType } from "src/types/UnitsType";
+import { OneLevelSuites, suite, SuiteType } from "src/types/UnitsType";
 import Suite from "src/features/suite/Suite";
-
-type SuitesBlockProps = {
-  suites: SuiteType[];
+import { useEffect, useState } from 'react';
+import { getOneLevelSuite } from 'src/entites/OneLevel/api/GetOneLevelData';
+type OneLevelProps = {
+  oneLevel: suite
 }
-
-const SuitesBlock = ({ suites: suites }: SuitesBlockProps) => {
+const SuitesBlock = () => {
+  const [suites,setSuites]= useState<suite[]>([]);
+  useEffect(()=>{
+    getOneLevelSuite({projectId:"a96d34f1-d20e-4c1b-bfdc-76f4c20c3b8c",suiteId:"a96d34f1-d20e-4c1b-bfdc-76f4c20c3b8c"}).then((response)=>
+      {
+        setSuites(response.suites);
+        console.log(response.suites)
+      });
+    },[]);
   return (
     <div className="suites-block">
       <div className="suites-block__header">
@@ -18,7 +26,7 @@ const SuitesBlock = ({ suites: suites }: SuitesBlockProps) => {
       <ul className="suites-block__suites-list">
         {
           suites.map((suite, index) => {
-            return <li key={index} className="suites-list--el"><Suite suiteName={suite.name} childCount={suite.childCount} /> </li>
+            return <li key={index} className="suites-list--el"><Suite suiteName={suite.suiteName} childCount={suite.numberOfChild}  /> </li>
           })
         }
       </ul>
