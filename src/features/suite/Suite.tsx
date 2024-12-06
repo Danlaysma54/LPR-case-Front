@@ -5,13 +5,14 @@ import FolderIcon from "src/assets/svgs/FolderIcon";
 
 type SuiteProps = {
   suiteName: string;
-  childCount: number;
   opened?: boolean;
+  childCount: number
+
 }
 const Suite = ({
                  suiteName: suiteName,
-                 childCount: childCount,
-                 opened: opened = false
+                 opened: opened = false,
+                 childCount
 }: SuiteProps) => {
   return (
     <div className="suite">
