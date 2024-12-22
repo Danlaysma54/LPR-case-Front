@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import authReducer, { AUTH_REDUCER } from "src/entities/auth/model/reducer";
-import { CLIENT_REDUCER, clientReducer } from "src/entities/client/model/ClientReducer";
+import { PROJECT_DATA_REDUCER, projectDataReducer } from "src/entites/Project/model/ProjectReducer";
 
-export const rootReducer = combineReducers({});
+export const rootReducer = combineReducers({
+  [PROJECT_DATA_REDUCER]: projectDataReducer
+});
