@@ -1,0 +1,39 @@
+.case-panel {
+  display: flex;
+  gap: 13px;
+  margin-top: 22px;
+  margin-left: 48px;
+}
+
+.case-panel__checkbox[type="checkbox"] {
+  width: 20px; height: 20px;
+  appearance: none;
+  cursor: pointer;
+  background: white;
+  border: 2px solid var(--neutrals400);
+  border-radius: 2px;
+}
+
+.case-panel__checkbox[type="checkbox"]:checked {
+  background: var(--accent2);
+}
+
+.dash {
+  align-items: center;
+  width: 18px;
+  height: 10px;
+  border-bottom:2px solid var(--primary400);
+  border-radius: 5%;
+}
+
+.case-panel__project-info {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent2);
+}
+
+.case-panel__name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primary1000);
+}

@@ -1,4 +1,4 @@
-import { Project } from "src/types/UnitsType";
+import { GetProjectByIdResponseType } from "src/types/UnitsType";
 
 enum ProjectDataType {
   GET_PROJECT_DATA_REJECT = "GET_PROJECT_DATA_REJECT",
@@ -8,12 +8,12 @@ enum ProjectDataType {
 
 export type GetProjectDataType = {
   type: ProjectDataType;
-  project: Project;
+  projectById: GetProjectByIdResponseType
 };
 
-export function getProjectByAction(project: Project): GetProjectDataType {
+export function getProjectByAction(project: GetProjectByIdResponseType): GetProjectDataType {
   return {
     type: ProjectDataType.GET_PROJECT_DATA_SUCCESS,
-    project: project
+    projectById: project
   };
 }

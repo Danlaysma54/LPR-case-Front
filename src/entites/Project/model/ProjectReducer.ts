@@ -1,15 +1,25 @@
-import { Project } from "@/types/UnitsType";
-import { GetProjectDataType } from "@/entites/Project/model/ProjectActions";
+import { GetProjectDataType } from "src/entites/Project/model/ProjectActions";
+
+import { GetProjectByIdResponseType } from "@/types/UnitsType";
 
 export const PROJECT_DATA_REDUCER = "PROJECT_DATA_REDUCER";
 
 export type projectDataState = {
-  data: Project;
+  data: GetProjectByIdResponseType;
   isError: boolean;
 };
 
 const initialStateData: projectDataState = {
-  data: { projectId: "", projectName: "", projectShortName: "", projectDescription: "" },
+  data: {
+    project: {
+      projectId: "",
+      projectName: "",
+      projectShortName: "",
+      projectDescription: ""
+    },
+    casesCount: 0,
+    suitesCount: 0
+  },
   isError: false,
 };
 
@@ -21,7 +31,7 @@ export function projectDataReducer(
     case "GET_PROJECT_DATA_SUCCESS":
       return {
         ...state,
-        data: action.project,
+        data: action.projectById,
         isError: false,
       };
     case "GET_PROJECT_DATA_REJECT":

@@ -11,6 +11,7 @@
 .suite-panel__checkbox[type="checkbox"] {
   width: 20px; height: 20px;
   appearance: none;
+  cursor: pointer;
   background: white;
   border: 2px solid var(--neutrals400);
   border-radius: 2px;
