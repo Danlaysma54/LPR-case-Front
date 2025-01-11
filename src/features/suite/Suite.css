@@ -1,12 +1,14 @@
 .suite {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .suite__left-side {
   display: flex;
   gap: 4px;
+  align-items: center;
 }
 
 .suite__child-count {
@@ -17,4 +19,22 @@
   position: absolute;
   margin-top: -4px;
   margin-left: -35px;
+}
+
+.suite__title {
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--primary1000);
+}
+
+.suite--btn {
+  width: 100%;
+  background-color: white;
+  border: none;
+}
+
+.suite__children {
+  margin-left: 10px;
 }

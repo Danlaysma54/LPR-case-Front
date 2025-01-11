@@ -1,22 +1,22 @@
-import './SuitesBlock.css'
+import "./SuitesBlock.css";
 
+import { useEffect, useState } from "react";
 import MenuIcon from "src/assets/svgs/MenuIcon";
-import { OneLevelSuites, suite, SuiteType } from "src/types/UnitsType";
+import { mockProjectId } from "src/config/mockData";
+import { getOneLevelSuite } from "src/entites/OneLevel/api/GetOneLevelData";
 import Suite from "src/features/suite/Suite";
-import { useEffect, useState } from 'react';
-import { getOneLevelSuite } from 'src/entites/OneLevel/api/GetOneLevelData';
-type OneLevelProps = {
-  oneLevel: suite
-}
+import { SuiteType } from "src/types/UnitsType";
+
 const SuitesBlock = () => {
-  const [suites,setSuites]= useState<suite[]>([]);
+  const [suites,setSuites]= useState<SuiteType[]>([]);
   useEffect(()=>{
-    getOneLevelSuite({projectId:"a96d34f1-d20e-4c1b-bfdc-76f4c20c3b8c",suiteId:"a96d34f1-d20e-4c1b-bfdc-76f4c20c3b8c"}).then((response)=>
-      {
-        setSuites(response.suites);
-        console.log(response.suites)
-      });
+    getOneLevelSuite({
+      projectId: mockProjectId,
+      suiteId: mockProjectId
+    }).then((response)=> setSuites(response.suites));
     },[]);
+
+
   return (
     <div className="suites-block">
       <div className="suites-block__header">
@@ -25,8 +25,16 @@ const SuitesBlock = () => {
       </div>
       <ul className="suites-block__suites-list">
         {
-          suites.map((suite, index) => {
-            return <li key={index} className="suites-list--el"><Suite suiteName={suite.suiteName} childCount={suite.numberOfChild}  /> </li>
+          suites.map((suite) => {
+            return <div key={suite.suiteId} className="suites-list__wrapper">
+                <li className="suites-list--el">
+                  <Suite
+                         suite={suite}
+                         suites={suites}
+                         setSuites={setSuites}
+                  />
+                </li>
+            </div>
           })
         }
       </ul>

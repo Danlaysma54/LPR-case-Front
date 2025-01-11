@@ -1,19 +1,15 @@
-export type SuiteType = {
-  suiteRootId: string;
-  suiteId: string;
-  name: string;
-  childCount: number;
-}
+import { GetOneLevelDataRequest, GetOneLevelDataResponse, GetProjectByIdRequest, GetProjectByIdResponse } from "src/types/ZodChemasApi";
+import { CaseSchema, ProjectSchema, SuiteContentSchema, SuiteSchema } from "src/types/ZodSchemasObjects";
+import z from "zod";
 
-export type CaseType = {
-  name: string;
-}
-export type OneLevelSuites = {
-  suiteList: suite[];
-}
-export type suite ={
-  numberOfChild: number
-  suiteId: string
-  suiteRootId: string
-  suiteName: string
- }
+export type SuiteType = z.infer<typeof SuiteSchema>
+export type CaseType = z.infer<typeof CaseSchema>
+export type Project = z.infer<typeof ProjectSchema>
+
+export type GetOneLevelDataRequestType = z.infer<typeof GetOneLevelDataRequest>
+export type GetOneLevelDataResponseType = z.infer<typeof GetOneLevelDataResponse>;
+
+export type GetProjectByIdRequestType = z.infer<typeof GetProjectByIdRequest>
+export type GetProjectByIdResponseType = z.infer<typeof GetProjectByIdResponse>
+
+export type SuiteContentType = z.infer<typeof SuiteContentSchema>
