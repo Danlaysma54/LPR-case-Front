@@ -23,6 +23,7 @@
 
 .suite__title {
   margin-top: 3px;
+  margin-left: 4px;
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
@@ -30,11 +31,16 @@
 }
 
 .suite--btn {
+  display: flex;
   width: 100%;
+  cursor: pointer;
   background-color: white;
   border: none;
 }
 
-.suite__children {
-  margin-left: 10px;
+.arrow--btn {
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
 }

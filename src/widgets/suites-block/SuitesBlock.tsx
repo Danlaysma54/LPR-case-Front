@@ -16,7 +16,6 @@ const SuitesBlock = () => {
     }).then((response)=> setSuites(response.suites));
     },[]);
 
-
   return (
     <div className="suites-block">
       <div className="suites-block__header">

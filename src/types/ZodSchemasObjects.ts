@@ -13,6 +13,7 @@ export type SuiteType = {
   suiteName: string;
   numberOfChild: number;
   isOpened?: boolean | null;
+  hasChildSuites?: boolean;
   children?: SuiteContentType
 };
 export const SuiteSchema: z.ZodType<SuiteType> = z.lazy(() => z.object({
@@ -21,12 +22,12 @@ export const SuiteSchema: z.ZodType<SuiteType> = z.lazy(() => z.object({
   suiteName: z.string().min(1),
   numberOfChild: z.number(),
   isOpened: z.boolean().nullish(),
-  children: SuiteContentSchema.optional()
+  children: SuiteContentSchema.optional(),
+  hasChildSuites: z.boolean().optional()
 }))
 
 export const CaseSchema = z.object( {
-  name: z.string().min(1),
-  serialNumber: z.number().min(1),
+  caseName: z.string().min(1),
   caseId: z.string().min(1)
 })
 

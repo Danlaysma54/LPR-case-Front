@@ -14,8 +14,8 @@ import SuitesBlock from "src/widgets/suites-block/SuitesBlock";
 const MainScreen = () => {
   const dispatch = useAppDispatch()
   const projectResponse = useAppSelector((state) => state["PROJECT_DATA_REDUCER"]?.data )
-  const openedSuites = useAppSelector((state) => state["ONE_LEVEL_REDUCER"]?.data)
-  const [headerTitle, setHeaderTitle] = useState<string>("None")
+  const openedSuite = useAppSelector((state) => state["ONE_LEVEL_REDUCER"]?.data)
+  const [headerTitle, setHeaderTitle] = useState<string>("Сьют не выбран")
   useEffect(() => {
     try {
       getProjectById( {
@@ -29,17 +29,10 @@ const MainScreen = () => {
   }, []);
 
   useEffect(() => {
-    const openedSuiteId = localStorage.getItem("openedSuiteId")
-    if (openedSuiteId) {
-      const openedSuite = openedSuites?.find((el) => {
-        return el.suiteId == openedSuiteId
-      })
-      console.log(openedSuites);
       if (openedSuite) {
         setHeaderTitle(openedSuite.suiteName)
       }
-    }
-  }, [openedSuites]);
+  }, [openedSuite]);
   return (
     <div className="main-screen">
       <Header/>
@@ -47,9 +40,7 @@ const MainScreen = () => {
         <LeftSide/>
         <main className="main-block__content">
           <RepositoryHeader repositoryName={
-                            projectResponse?.project?.projectName ? projectResponse.project?.projectName: ""}
-                            suitesCount={projectResponse?.suitesCount ? projectResponse.suitesCount: 0}
-                            casesCount={projectResponse?.casesCount ? projectResponse.casesCount: 0}/>
+                            projectResponse?.project?.projectName ? projectResponse.project?.projectName: ""} />
           <div className="content__units">
             <SuitesBlock/>
             <CasesBlock headerTitle={headerTitle}/>
