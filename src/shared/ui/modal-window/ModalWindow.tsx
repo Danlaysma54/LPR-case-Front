@@ -1,6 +1,6 @@
-import './ModalWindow.css';
+import "./ModalWindow.css";
 
-import React from 'react';
+import React from "react";
 import CloseIcon from "src/assets/svgs/CloseIcon";
 
 export type ModalWindowProps = {
@@ -9,7 +9,11 @@ export type ModalWindowProps = {
   onClose?: () => void;
 };
 
-const ModalWindow: React.FC<ModalWindowProps> = ({ children, isOpened = false, onClose }) => {
+const ModalWindow: React.FC<ModalWindowProps> = ({
+  children,
+  isOpened = false,
+  onClose,
+}) => {
   if (!isOpened) return null;
 
   return (

@@ -2,25 +2,23 @@ import "./Button.css";
 
 import React from "react";
 
-
 export type ButtonProps = {
-  className?: string,
-  onClick?: () => void,
-  disabled?: boolean,
-  children: string | React.ReactNode,
-  type?: "submit" | "reset" | "button" | undefined,
-  style?: { backgroundColor: string }
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  children: string | React.ReactNode;
+  type?: "submit" | "reset" | "button" | undefined;
+  style?: { backgroundColor: string };
 };
 
 const Button = ({
-                  className = "",
-                  onClick = () => {
-                  },
-                  disabled = false,
-                  children,
-                  type,
-                  style,
-                }: ButtonProps) => (
+  className = "",
+  onClick = () => {},
+  disabled = false,
+  children,
+  type,
+  style,
+}: ButtonProps) => (
   <button
     style={style}
     type={type}

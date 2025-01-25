@@ -1,7 +1,6 @@
-import "./AddButton.css"
+import "./AddButton.css";
 
 import PlusSvg from "src/assets/svgs/PlusIcon";
-
 
 export type ButtonProps = {
   className?: string;
@@ -11,17 +10,17 @@ export type ButtonProps = {
 };
 
 const AddButton = ({
-                  className = "",
-                  onClick = () => {},
-                  disabled = false,
-                  children,
-                }: ButtonProps) => (
+  className = "",
+  onClick = () => {},
+  disabled = false,
+  children,
+}: ButtonProps) => (
   <button
     className={`add-button ${className}`}
     onClick={onClick}
     disabled={disabled}
   >
-    <PlusSvg/>
+    <PlusSvg />
     {children}
   </button>
 );

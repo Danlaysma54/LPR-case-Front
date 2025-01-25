@@ -5,21 +5,23 @@
 }
 
 :root {
-  --accent2: #FF9700;
-  --primary400: #BDBDBD;
-  --primary200: #F8FBFB;
-  --background: #F0F5F6;
-  --primary300: #BABABA;
+  --accent2: #ff9700;
+  --primary400: #bdbdbd;
+  --primary200: #f8fbfb;
+  --background: #f0f5f6;
+  --primary300: #bababa;
   --base-black: #333;
   --primary600: #919191;
-  --neutrals100: #F6F6F6;
+  --neutrals100: #f6f6f6;
   --primary1000: #393939;
-  --neutrals400: #B5B5B5;
-  --primary500: #F9F9F9;
-  --primary700: #EFEFEF;
+  --neutrals400: #b5b5b5;
+  --primary500: #f9f9f9;
+  --primary700: #efefef;
 }
 
 @font-face {
   font-family: Golos;
-  src: local('Golos'), url('src/assets/fonts/golos-text_regular.ttf') format('ttf');
+  src:
+    local("Golos"),
+    url("src/assets/fonts/golos-text_regular.ttf") format("ttf");
 }

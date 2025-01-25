@@ -1,10 +1,7 @@
-import './LeftSide.css'
+import "./LeftSide.css";
 
 const LeftSide = () => {
-  return (
-    <div className="left-side">
-    </div>
-  )
-}
+  return <div className="left-side"></div>;
+};
 
 export default LeftSide;

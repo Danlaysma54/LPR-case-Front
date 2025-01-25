@@ -14,32 +14,36 @@ enum OpenedSuitesType {
 
 export type SaveOpenedSuiteType = {
   type: OpenedSuiteType;
-  openedSuite: GetOneLevelDataResponseType,
-  suiteId: string
-  suiteName: string
+  openedSuite: GetOneLevelDataResponseType;
+  suiteId: string;
+  suiteName: string;
 };
 
 export type SaveOpenedSuitesType = {
   type: OpenedSuitesType;
-  openedSuite: GetOneLevelDataResponseType,
-  suiteId: string
-  suiteName: string
+  openedSuite: GetOneLevelDataResponseType;
+  suiteId: string;
+  suiteName: string;
 };
 
-export function saveOpenedSuite(suite: GetOneLevelDataResponseType): SaveOpenedSuiteType {
+export function saveOpenedSuite(
+  suite: GetOneLevelDataResponseType,
+): SaveOpenedSuiteType {
   return {
     type: OpenedSuiteType.SAVE_OPENED_SUITE_SUCCESS,
     openedSuite: suite,
     suiteId: suite.suiteId,
-    suiteName: suite.suiteName
+    suiteName: suite.suiteName,
   };
 }
 
-export function saveOpenedSuites(suite: GetOneLevelDataResponseType): SaveOpenedSuitesType {
+export function saveOpenedSuites(
+  suite: GetOneLevelDataResponseType,
+): SaveOpenedSuitesType {
   return {
     type: OpenedSuitesType.SAVE_OPENED_SUITES_SUCCESS,
     openedSuite: suite,
     suiteId: suite.suiteId,
-    suiteName: suite.suiteName
+    suiteName: suite.suiteName,
   };
 }

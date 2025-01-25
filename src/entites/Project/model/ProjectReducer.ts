@@ -15,10 +15,10 @@ const initialStateData: projectDataState = {
       projectId: "",
       projectName: "",
       projectShortName: "",
-      projectDescription: ""
+      projectDescription: "",
     },
     casesCount: 0,
-    suitesCount: 0
+    suitesCount: 0,
   },
   isError: false,
 };

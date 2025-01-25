@@ -24,9 +24,12 @@
     "ws": "^8.17.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": "eslint --fix",
-    "*.{json,ts,tsx,js,jsx}": "prettier --write",
-    "*.{css,scss}": "stylelint --fix"
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss}": "prettier --write",
+    "*.css": "stylelint --fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",

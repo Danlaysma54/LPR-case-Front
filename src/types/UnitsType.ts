@@ -1,5 +1,6 @@
 import {
-  AddSuiteRequest, AddSuiteResponse,
+  AddSuiteRequest,
+  AddSuiteResponse,
   GetOneLevelDataRequest,
   GetOneLevelDataResponse,
   GetProjectByIdRequest,
@@ -7,24 +8,35 @@ import {
   GetSuitesByProjectIdRequest,
   GetSuitesByProjectIdResponse,
 } from "src/types/ZodChemasApi";
-import { CaseSchema, ProjectSchema, SuiteContentSchema, SuiteSchema } from "src/types/ZodSchemasObjects";
+import {
+  CaseSchema,
+  ProjectSchema,
+  SuiteContentSchema,
+  SuiteSchema,
+} from "src/types/ZodSchemasObjects";
 import z from "zod";
 
-export type SuiteType = z.infer<typeof SuiteSchema>
-export type CaseType = z.infer<typeof CaseSchema>
-export type Project = z.infer<typeof ProjectSchema>
+export type SuiteType = z.infer<typeof SuiteSchema>;
+export type CaseType = z.infer<typeof CaseSchema>;
+export type Project = z.infer<typeof ProjectSchema>;
 
-export type GetOneLevelDataRequestType = z.infer<typeof GetOneLevelDataRequest>
-export type GetOneLevelDataResponseType = z.infer<typeof GetOneLevelDataResponse>;
+export type GetOneLevelDataRequestType = z.infer<typeof GetOneLevelDataRequest>;
+export type GetOneLevelDataResponseType = z.infer<
+  typeof GetOneLevelDataResponse
+>;
 
-export type GetProjectByIdRequestType = z.infer<typeof GetProjectByIdRequest>
-export type GetProjectByIdResponseType = z.infer<typeof GetProjectByIdResponse>
+export type GetProjectByIdRequestType = z.infer<typeof GetProjectByIdRequest>;
+export type GetProjectByIdResponseType = z.infer<typeof GetProjectByIdResponse>;
 
-export type GetSuitesByProjectIdRequestType = z.infer<typeof GetSuitesByProjectIdRequest>
-export type GetSuitesByProjectIdResponseType = z.infer<typeof GetSuitesByProjectIdResponse>;
+export type GetSuitesByProjectIdRequestType = z.infer<
+  typeof GetSuitesByProjectIdRequest
+>;
+export type GetSuitesByProjectIdResponseType = z.infer<
+  typeof GetSuitesByProjectIdResponse
+>;
 
-export type SuiteContentType = z.infer<typeof SuiteContentSchema>
+export type SuiteContentType = z.infer<typeof SuiteContentSchema>;
 
-export type AddSuiteRequestType = z.infer<typeof AddSuiteRequest>
+export type AddSuiteRequestType = z.infer<typeof AddSuiteRequest>;
 
-export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>
+export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>;

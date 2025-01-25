@@ -4,7 +4,7 @@ import React from "react";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  className?: string
+  className?: string;
 };
 
 const Input = ({ onChange, className, ...inputProps }: InputProps) => {

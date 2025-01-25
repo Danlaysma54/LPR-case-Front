@@ -1,1 +1,1 @@
-export const mockProjectId = "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c"
+export const mockProjectId = "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c";
