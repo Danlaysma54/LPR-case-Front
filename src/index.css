@@ -13,8 +13,10 @@
   --base-black: #333;
   --primary600: #919191;
   --neutrals100: #F6F6F6;
-  --primary1000:#393939 ;
+  --primary1000: #393939;
   --neutrals400: #B5B5B5;
+  --primary500: #F9F9F9;
+  --primary700: #EFEFEF;
 }
 
 @font-face {

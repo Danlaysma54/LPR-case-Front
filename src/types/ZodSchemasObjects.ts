@@ -35,3 +35,13 @@ export const SuiteContentSchema = z.object({
   suites: z.array(z.lazy(() => SuiteSchema)),
   cases: z.array(CaseSchema),
 })
+
+export const SuiteDTOSchema = z.object({
+  suiteName: z.string().min(1),
+  suiteId: z.string().min(1)
+})
+
+export const AddSuiteSchema = z.object({
+  suiteName: z.string().min(1),
+  suiteRootId: z.string().min(1)
+})

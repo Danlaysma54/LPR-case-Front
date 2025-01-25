@@ -1,4 +1,12 @@
-import { GetOneLevelDataRequest, GetOneLevelDataResponse, GetProjectByIdRequest, GetProjectByIdResponse } from "src/types/ZodChemasApi";
+import {
+  AddSuiteRequest, AddSuiteResponse,
+  GetOneLevelDataRequest,
+  GetOneLevelDataResponse,
+  GetProjectByIdRequest,
+  GetProjectByIdResponse,
+  GetSuitesByProjectIdRequest,
+  GetSuitesByProjectIdResponse,
+} from "src/types/ZodChemasApi";
 import { CaseSchema, ProjectSchema, SuiteContentSchema, SuiteSchema } from "src/types/ZodSchemasObjects";
 import z from "zod";
 
@@ -12,4 +20,11 @@ export type GetOneLevelDataResponseType = z.infer<typeof GetOneLevelDataResponse
 export type GetProjectByIdRequestType = z.infer<typeof GetProjectByIdRequest>
 export type GetProjectByIdResponseType = z.infer<typeof GetProjectByIdResponse>
 
+export type GetSuitesByProjectIdRequestType = z.infer<typeof GetSuitesByProjectIdRequest>
+export type GetSuitesByProjectIdResponseType = z.infer<typeof GetSuitesByProjectIdResponse>;
+
 export type SuiteContentType = z.infer<typeof SuiteContentSchema>
+
+export type AddSuiteRequestType = z.infer<typeof AddSuiteRequest>
+
+export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>

@@ -35,15 +35,15 @@ const MainScreen = () => {
   }, [openedSuite]);
   return (
     <div className="main-screen">
-      <Header/>
+      <Header />
       <div className="main-block">
-        <LeftSide/>
+        <LeftSide />
         <main className="main-block__content">
           <RepositoryHeader repositoryName={
-                            projectResponse?.project?.projectName ? projectResponse.project?.projectName: ""} />
+            projectResponse?.project?.projectName ? projectResponse.project?.projectName : ""} />
           <div className="content__units">
-            <SuitesBlock/>
-            <CasesBlock headerTitle={headerTitle}/>
+            <SuitesBlock />
+            <CasesBlock headerTitle={headerTitle} />
           </div>
         </main>
       </div>

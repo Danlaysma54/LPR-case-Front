@@ -1,4 +1,4 @@
-import { CaseSchema, ProjectSchema, SuiteSchema } from "src/types/ZodSchemasObjects";
+import { AddSuiteSchema, CaseSchema, ProjectSchema, SuiteDTOSchema, SuiteSchema } from "src/types/ZodSchemasObjects";
 import z from "zod";
 
 export const GetOneLevelDataRequest = z.object({
@@ -22,3 +22,20 @@ export const GetProjectByIdResponse = z.object({
   casesCount: z.number().nonnegative(),
   suitesCount: z.number().nonnegative()
 })
+
+export const GetSuitesByProjectIdRequest = z.object({
+  projectId : z.string().min(1),
+})
+
+export const GetSuitesByProjectIdResponse = z.object({
+  suites: z.array(SuiteDTOSchema),
+})
+
+export const AddSuiteRequest = z.object({
+  suite: AddSuiteSchema,
+  projectId: z.string()
+})
+
+export const AddSuiteResponse = z.string()
+
+
