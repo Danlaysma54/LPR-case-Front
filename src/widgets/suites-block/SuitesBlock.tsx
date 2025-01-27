@@ -1,6 +1,7 @@
 import "./SuitesBlock.css";
 
 import { useEffect, useState } from "react";
+
 import MenuIcon from "src/assets/svgs/MenuIcon";
 import { mockProjectId } from "src/config/mockData";
 import { getOneLevelSuite } from "src/entites/OneLevel/api/GetOneLevelData";

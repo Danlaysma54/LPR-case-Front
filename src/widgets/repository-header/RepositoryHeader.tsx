@@ -1,12 +1,16 @@
-import "./RepositoryHeader.css";
-
 import { useState } from "react";
-import AddButton from "src/shared/ui/add-button/AddButton";
+
+import CloneIcon from "@/assets/svgs/CloneIcon";
+import DeleteIcon from "@/assets/svgs/DeleteIcon";
+import EditIcon from "@/assets/svgs/EditIcon";
+import PlusIcon from "@/assets/svgs/PlusIcon";
+import RunIcon from "@/assets/svgs/RunIcon";
+import { useAppSelector } from "@/shared/hooks/ReduxHooks";
+import Button from "@/shared/ui/button/Button";
+import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 import Search from "src/shared/ui/search/Search";
 import AddSuiteModal from "src/widgets/modal-windows/AddSuiteModal";
-
-import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
-
+import "./RepositoryHeader.css";
 type RepositoryHeaderProps = {
   repositoryName: string;
 };
@@ -18,6 +22,9 @@ const RepositoryHeader = ({
   const [AllSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
     suites: [],
   });
+  const openedSuite = useAppSelector(
+    (state) => state["ONE_LEVEL_REDUCER"]?.data,
+  );
   const openAddSuiteModal = () => {
     //getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) => (
     //setAllSuites(res)
@@ -49,8 +56,31 @@ const RepositoryHeader = ({
         </span>
       </div>
       <div className="repository-header__buttons">
-        <AddButton onClick={openAddSuiteModal}>Suite</AddButton>
-        <AddButton>Case</AddButton>
+        <Button
+          className="repository-header__buttons--add"
+          onClick={openAddSuiteModal}
+        >
+          <PlusIcon /> Suite
+        </Button>
+        <Button className="repository-header__buttons--add">
+          <PlusIcon /> Case
+        </Button>
+        {openedSuite?.suiteId ? (
+          <>
+            <Button className="repository-header__button-additional">
+              <RunIcon /> Run
+            </Button>
+            <Button className="repository-header__button-additional">
+              <EditIcon /> Edit
+            </Button>
+            <Button className="repository-header__button-additional">
+              <CloneIcon /> Clone
+            </Button>
+            <Button className="repository-header__button-additional">
+              <DeleteIcon /> Delete
+            </Button>
+          </>
+        ) : null}
         <Search />
       </div>
     </div>

@@ -24,12 +24,12 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
+    "prettier",
     "react",
     "import",
     "jsx-a11y",
     "@typescript-eslint",
-    "react-hooks",
-    "simple-import-sort"
+    "react-hooks"
   ],
   "settings": {
     "react": {
@@ -50,6 +50,39 @@
     }
   },
   "rules": {
+    "prettier/prettier": 2,
+    "import/order": [
+      2,
+      {
+        "groups": [
+          "external",
+          "builtin",
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "**/*.css",
+            "group": "type",
+            "position": "after"
+          },
+          {
+            "pattern": "**/*.scss",
+            "group": "type",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always-and-inside-groups"
+      }
+    ],
     "linebreak-style": ["error", "unix"],
     "object-curly-spacing": ["error", "always"],
     "import/no-unresolved": "error",
@@ -62,8 +95,6 @@
       {
         "validStrategies": ["ternary", "coerce"]
       }
-    ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    ]
   }
 }

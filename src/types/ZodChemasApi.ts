@@ -1,3 +1,5 @@
+import z from "zod";
+
 import {
   AddSuiteSchema,
   CaseSchema,
@@ -5,7 +7,6 @@ import {
   SuiteDTOSchema,
   SuiteSchema,
 } from "src/types/ZodSchemasObjects";
-import z from "zod";
 
 export const GetOneLevelDataRequest = z.object({
   projectId: z.string().min(1),

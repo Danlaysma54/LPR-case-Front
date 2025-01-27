@@ -1,5 +1,3 @@
-import "./AddSuiteModal.css";
-
 import React, { useState } from "react";
 
 import { mockProjectId } from "@/config/mockData";
@@ -9,6 +7,8 @@ import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import ModalWindow from "@/shared/ui/modal-window/ModalWindow";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
+
+import "./AddSuiteModal.css";
 
 type AddSuiteModalProps = {
   isModalOpen: boolean;
@@ -152,7 +152,7 @@ const AddSuiteModal = ({
           <div className="add-suite__buttons">
             <Button
               onClick={closeAddSuiteModal}
-              style={{ backgroundColor: "var(--neutrals400)" }}
+              className="add-suite__cancel--button"
             >
               Cancel
             </Button>

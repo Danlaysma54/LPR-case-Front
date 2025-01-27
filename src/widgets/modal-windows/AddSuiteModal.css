@@ -95,3 +95,15 @@
   color: darkred;
   white-space: nowrap;
 }
+
+.add-suite__cancel--button {
+  background-color: var(--neutrals400);
+}
+
+.add-suite__cancel--button:hover {
+  background-color: var(--hover-neutrals400);
+}
+
+.add-suite__cancel--button:active {
+  background-color: var(--active-neutrals400);
+}

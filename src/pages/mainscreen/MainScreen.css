@@ -20,4 +20,6 @@
 
 .content__units {
   display: flex;
+  flex-grow: 1;
+  height: 100%;
 }

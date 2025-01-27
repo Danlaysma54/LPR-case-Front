@@ -1,6 +1,7 @@
 import "./Suite.css";
 
 import React from "react";
+
 import DownArrow from "src/assets/svgs/DownArrow";
 import FolderIcon from "src/assets/svgs/FolderIcon";
 import UpArrow from "src/assets/svgs/UpArrow";
@@ -144,42 +145,44 @@ const Suite = ({ suite, suites, setSuites, depth = 0 }: SuiteProps) => {
     ));
   };
   return (
-    <div style={{ marginLeft: `${depth * 20}px`, marginTop: "10px" }}>
-      <div className="suite">
-        <div className="suite__left-side">
-          {suite.hasChildSuites && suite.isOpened ? (
-            <div className="suite__left-side--arrow">
-              <button
-                className="arrow--btn"
-                onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
-              >
-                <UpArrow />
-              </button>
-            </div>
-          ) : null}
-          {suite.hasChildSuites && !suite.isOpened ? (
-            <div className="suite__left-side--arrow">
-              <button
-                className="arrow--btn"
-                onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
-              >
-                <DownArrow />
-              </button>
-            </div>
-          ) : null}
+    <>
+      {suite.hasChildSuites && suite.isOpened ? (
+        <div className="suite__left-side--arrow">
           <button
-            className="suite--btn"
-            onClick={() => chooseSuite(suite.suiteId, suite.suiteName)}
+            className="arrow--btn"
+            onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
           >
-            <FolderIcon color={"#393939"} />
-            <div className="suite__title">{suite.suiteName}</div>
+            <UpArrow />
           </button>
         </div>
-      </div>
-      {suite.isOpened && suite.children?.suites ? (
-        <div>{drawSuiteChildren(suite.children.suites)}</div>
       ) : null}
-    </div>
+      {suite.hasChildSuites && !suite.isOpened ? (
+        <div className="suite__left-side--arrow">
+          <button
+            className="arrow--btn"
+            onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
+          >
+            <DownArrow />
+          </button>
+        </div>
+      ) : null}
+      <div style={{ marginLeft: `${depth * 20}px`, paddingTop: "18px" }}>
+        <div className="suite">
+          <div className="suite__left-side">
+            <button
+              className="suite--btn"
+              onClick={() => chooseSuite(suite.suiteId, suite.suiteName)}
+            >
+              <FolderIcon color={"#393939"} />
+              <div className="suite__title">{suite.suiteName}</div>
+            </button>
+          </div>
+        </div>
+        {suite.isOpened && suite.children?.suites ? (
+          <div>{drawSuiteChildren(suite.children.suites)}</div>
+        ) : null}
+      </div>
+    </>
   );
 };
 

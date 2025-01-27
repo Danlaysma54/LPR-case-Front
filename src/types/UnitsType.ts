@@ -1,3 +1,5 @@
+import z from "zod";
+
 import {
   AddSuiteRequest,
   AddSuiteResponse,
@@ -14,7 +16,6 @@ import {
   SuiteContentSchema,
   SuiteSchema,
 } from "src/types/ZodSchemasObjects";
-import z from "zod";
 
 export type SuiteType = z.infer<typeof SuiteSchema>;
 export type CaseType = z.infer<typeof CaseSchema>;

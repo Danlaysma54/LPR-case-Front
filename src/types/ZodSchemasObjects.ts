@@ -1,5 +1,6 @@
-import { SuiteContentType } from "src/types/UnitsType";
 import z from "zod";
+
+import { SuiteContentType } from "src/types/UnitsType";
 
 export const ProjectSchema = z.object({
   projectId: z.string().min(1),
