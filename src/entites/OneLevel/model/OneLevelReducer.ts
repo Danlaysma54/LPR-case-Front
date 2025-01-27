@@ -1,24 +1,31 @@
-import { SaveOpenedSuitesType, SaveOpenedSuiteType } from "src/entites/OneLevel/model/OnelLevelActions";
-import { CaseType, GetOneLevelDataResponseType, SuiteType } from "src/types/UnitsType";
+import {
+  SaveOpenedSuitesType,
+  SaveOpenedSuiteType,
+} from "src/entites/OneLevel/model/OnelLevelActions";
+import {
+  CaseType,
+  GetOneLevelDataResponseType,
+  SuiteType,
+} from "src/types/UnitsType";
 
 export const ONE_LEVEL_REDUCER = "ONE_LEVEL_REDUCER";
 export const SUITE_REDUCER = "SUITE_REDUCER";
 
 export type oneLevelDataState = {
   data: {
-    suiteId: string,
-    suiteName: string
-    suiteContent: GetOneLevelDataResponseType
+    suiteId: string;
+    suiteName: string;
+    suiteContent: GetOneLevelDataResponseType;
   };
   isError: boolean;
 };
 
 export type openedSuitesState = {
   data: {
-    suiteId: string,
-    suiteName: string
-    cases: CaseType[],
-    suites: SuiteType[]
+    suiteId: string;
+    suiteName: string;
+    cases: CaseType[];
+    suites: SuiteType[];
   }[];
   isError: boolean;
 };
@@ -32,7 +39,7 @@ const initialStateData: oneLevelDataState = {
       cases: [],
       suiteName: "",
       suiteId: "",
-    }
+    },
   },
   isError: false,
 };
@@ -50,13 +57,11 @@ export function oneLevelDataReducer(
     case "GET_OPENED_SUITE_SUCCESS":
       return {
         ...state,
-        data:
-          {
-            suiteId: action.suiteId,
-            suiteContent: action.openedSuite,
-            suiteName: action.suiteName
-          }
-        ,
+        data: {
+          suiteId: action.suiteId,
+          suiteContent: action.openedSuite,
+          suiteName: action.suiteName,
+        },
         isError: false,
       };
     case "GET_OPENED_SUITE_REJECT":

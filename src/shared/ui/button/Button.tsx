@@ -1,28 +1,33 @@
-import "./AddButton.css";
+import "./Button.css";
 
-import PlusSvg from "src/assets/svgs/PlusIcon";
+import React from "react";
 
 export type ButtonProps = {
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
   children: string | React.ReactNode;
+  type?: "submit" | "reset" | "button" | undefined;
+  style?: { backgroundColor: string };
 };
 
-const AddButton = ({
+const Button = ({
   className = "",
   onClick = () => {},
   disabled = false,
   children,
+  type,
+  style,
 }: ButtonProps) => (
   <button
-    className={`add-button ${className}`}
+    style={style}
+    type={type}
+    className={`custom-button ${className} `}
     onClick={onClick}
     disabled={disabled}
   >
-    <PlusSvg />
     {children}
   </button>
 );
 
-export default AddButton;
+export default Button;

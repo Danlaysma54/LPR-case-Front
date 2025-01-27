@@ -1,4 +1,4 @@
-import './Suite.css'
+import "./Suite.css";
 
 import React from "react";
 import DownArrow from "src/assets/svgs/DownArrow";
@@ -6,7 +6,10 @@ import FolderIcon from "src/assets/svgs/FolderIcon";
 import UpArrow from "src/assets/svgs/UpArrow";
 import { mockProjectId } from "src/config/mockData";
 import { getOneLevelSuite } from "src/entites/OneLevel/api/GetOneLevelData";
-import { saveOpenedSuite, saveOpenedSuites } from "src/entites/OneLevel/model/OnelLevelActions";
+import {
+  saveOpenedSuite,
+  saveOpenedSuites,
+} from "src/entites/OneLevel/model/OnelLevelActions";
 import { useAppDispatch, useAppSelector } from "src/shared/hooks/ReduxHooks";
 import { GetOneLevelDataResponseType, SuiteType } from "src/types/UnitsType";
 
@@ -17,14 +20,9 @@ type SuiteProps = {
   depth?: number;
 };
 
-const Suite = ({
-                 suite,
-                 suites,
-                 setSuites,
-                 depth = 0,
-               }: SuiteProps) => {
+const Suite = ({ suite, suites, setSuites, depth = 0 }: SuiteProps) => {
   const dispatch = useAppDispatch();
-  const openedSuites = useAppSelector((state) => state["SUITE_REDUCER"]?.data )
+  const openedSuites = useAppSelector((state) => state["SUITE_REDUCER"]?.data);
   function changeVisibility(suites: SuiteType[], suiteId: string): SuiteType[] {
     return suites.map((suite) => {
       if (suite.suiteId === suiteId) {
@@ -46,7 +44,7 @@ const Suite = ({
   function appendChildren(
     suites: SuiteType[],
     suiteId: string,
-    children: GetOneLevelDataResponseType
+    children: GetOneLevelDataResponseType,
   ): SuiteType[] {
     return suites.map((suite) => {
       if (suite.suiteId === suiteId) {
@@ -65,7 +63,10 @@ const Suite = ({
     });
   }
 
-  function findSuiteById(suites: SuiteType[], suiteId: string): SuiteType | undefined {
+  function findSuiteById(
+    suites: SuiteType[],
+    suiteId: string,
+  ): SuiteType | undefined {
     for (const suite of suites) {
       if (suite.suiteId === suiteId) {
         return suite;
@@ -80,22 +81,23 @@ const Suite = ({
     return undefined;
   }
 
-
   const chooseSuite = (suiteId: string, suiteName: string) => {
-    const suite = openedSuites.find((el) => el.suiteId === suiteId)
+    const suite = openedSuites.find((el) => el.suiteId === suiteId);
     if (suite) {
-      dispatch(saveOpenedSuite(suite))
+      dispatch(saveOpenedSuite(suite));
     } else {
       getOneLevelSuite({
         projectId: mockProjectId,
         suiteId: suiteId,
       }).then((response) => {
-        dispatch(saveOpenedSuite({
-          cases: response.cases,
-          suites: response.suites,
-          suiteId: suiteId,
-          suiteName: suiteName
-        }))
+        dispatch(
+          saveOpenedSuite({
+            cases: response.cases,
+            suites: response.suites,
+            suiteId: suiteId,
+            suiteName: suiteName,
+          }),
+        );
       });
     }
   };
@@ -104,26 +106,31 @@ const Suite = ({
     const updatedSuites = changeVisibility(suites, suiteId);
     setSuites(updatedSuites);
 
-    const currentSuite = findSuiteById(updatedSuites, suiteId)
+    const currentSuite = findSuiteById(updatedSuites, suiteId);
     if (currentSuite?.isOpened) {
       if (!currentSuite.children) {
         getOneLevelSuite({
           projectId: mockProjectId,
           suiteId: suiteId,
         }).then((response) => {
-          const updatedSuitesWithChildren = appendChildren(updatedSuites, suiteId, response);
+          const updatedSuitesWithChildren = appendChildren(
+            updatedSuites,
+            suiteId,
+            response,
+          );
           setSuites(updatedSuitesWithChildren);
-          dispatch(saveOpenedSuites({
-            cases: response.cases,
-            suites: response.suites,
-            suiteId: suiteId,
-            suiteName: suiteName
-          }))
+          dispatch(
+            saveOpenedSuites({
+              cases: response.cases,
+              suites: response.suites,
+              suiteId: suiteId,
+              suiteName: suiteName,
+            }),
+          );
         });
       }
     }
   }
-
 
   const drawSuiteChildren = (children: SuiteType[]) => {
     return children.map((childSuite) => (
@@ -138,24 +145,37 @@ const Suite = ({
   };
   return (
     <div style={{ marginLeft: `${depth * 20}px`, marginTop: "10px" }}>
-        <div className="suite">
-          <div className="suite__left-side">
-            {suite.hasChildSuites && suite.isOpened ? (
-              <div className="suite__left-side--arrow">
-                <button className="arrow--btn" onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}><UpArrow /></button>
-              </div>
-            ) : null}
-            {suite.hasChildSuites && !suite.isOpened ? (
-              <div className="suite__left-side--arrow">
-                <button className="arrow--btn" onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}><DownArrow /></button>
-              </div>
-            ) : null}
-            <button className="suite--btn" onClick={() => chooseSuite(suite.suiteId, suite.suiteName)}>
-              <FolderIcon color={"#393939"} />
-              <div className="suite__title">{suite.suiteName}</div>
-            </button>
-          </div>
+      <div className="suite">
+        <div className="suite__left-side">
+          {suite.hasChildSuites && suite.isOpened ? (
+            <div className="suite__left-side--arrow">
+              <button
+                className="arrow--btn"
+                onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
+              >
+                <UpArrow />
+              </button>
+            </div>
+          ) : null}
+          {suite.hasChildSuites && !suite.isOpened ? (
+            <div className="suite__left-side--arrow">
+              <button
+                className="arrow--btn"
+                onClick={() => uncoverSuite(suite.suiteId, suite.suiteName)}
+              >
+                <DownArrow />
+              </button>
+            </div>
+          ) : null}
+          <button
+            className="suite--btn"
+            onClick={() => chooseSuite(suite.suiteId, suite.suiteName)}
+          >
+            <FolderIcon color={"#393939"} />
+            <div className="suite__title">{suite.suiteName}</div>
+          </button>
         </div>
+      </div>
       {suite.isOpened && suite.children?.suites ? (
         <div>{drawSuiteChildren(suite.children.suites)}</div>
       ) : null}

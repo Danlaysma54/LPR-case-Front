@@ -12,43 +12,52 @@ import RepositoryHeader from "src/widgets/repository-header/RepositoryHeader";
 import SuitesBlock from "src/widgets/suites-block/SuitesBlock";
 
 const MainScreen = () => {
-  const dispatch = useAppDispatch()
-  const projectResponse = useAppSelector((state) => state["PROJECT_DATA_REDUCER"]?.data )
-  const openedSuite = useAppSelector((state) => state["ONE_LEVEL_REDUCER"]?.data)
-  const [headerTitle, setHeaderTitle] = useState<string>("Сьют не выбран")
+  const dispatch = useAppDispatch();
+  const projectResponse = useAppSelector(
+    (state) => state["PROJECT_DATA_REDUCER"]?.data,
+  );
+  const openedSuite = useAppSelector(
+    (state) => state["ONE_LEVEL_REDUCER"]?.data,
+  );
+  const [headerTitle, setHeaderTitle] = useState<string>("Сьют не выбран");
   useEffect(() => {
     try {
-      getProjectById( {
-        projectId: mockProjectId
+      getProjectById({
+        projectId: mockProjectId,
       }).then((res) => {
-        dispatch(getProjectByAction(res))
-      })
+        dispatch(getProjectByAction(res));
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-      if (openedSuite) {
-        setHeaderTitle(openedSuite.suiteName)
-      }
+    if (openedSuite) {
+      setHeaderTitle(openedSuite.suiteName);
+    }
   }, [openedSuite]);
   return (
     <div className="main-screen">
-      <Header/>
+      <Header />
       <div className="main-block">
-        <LeftSide/>
+        <LeftSide />
         <main className="main-block__content">
-          <RepositoryHeader repositoryName={
-                            projectResponse?.project?.projectName ? projectResponse.project?.projectName: ""} />
+          <RepositoryHeader
+            repositoryName={
+              projectResponse?.project?.projectName
+                ? projectResponse.project?.projectName
+                : ""
+            }
+          />
           <div className="content__units">
-            <SuitesBlock/>
-            <CasesBlock headerTitle={headerTitle}/>
+            <SuitesBlock />
+            <CasesBlock headerTitle={headerTitle} />
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 };
 
 export default MainScreen;

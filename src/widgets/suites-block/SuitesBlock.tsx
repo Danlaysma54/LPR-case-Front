@@ -8,38 +8,33 @@ import Suite from "src/features/suite/Suite";
 import { SuiteType } from "src/types/UnitsType";
 
 const SuitesBlock = () => {
-  const [suites,setSuites]= useState<SuiteType[]>([]);
-  useEffect(()=>{
+  const [suites, setSuites] = useState<SuiteType[]>([]);
+  useEffect(() => {
     getOneLevelSuite({
       projectId: mockProjectId,
-      suiteId: mockProjectId
-    }).then((response)=> setSuites(response.suites));
-    },[]);
+      suiteId: mockProjectId,
+    }).then((response) => setSuites(response.suites));
+  }, []);
 
   return (
     <div className="suites-block">
       <div className="suites-block__header">
-        <MenuIcon/>
+        <MenuIcon />
         <div className="suites-block__title">Suites</div>
       </div>
       <ul className="suites-block__suites-list">
-        {
-          suites.map((suite) => {
-            return <div key={suite.suiteId} className="suites-list__wrapper">
-                <li className="suites-list--el">
-                  <Suite
-                         suite={suite}
-                         suites={suites}
-                         setSuites={setSuites}
-                  />
-                </li>
+        {suites.map((suite) => {
+          return (
+            <div key={suite.suiteId} className="suites-list__wrapper">
+              <li className="suites-list--el">
+                <Suite suite={suite} suites={suites} setSuites={setSuites} />
+              </li>
             </div>
-          })
-        }
+          );
+        })}
       </ul>
     </div>
-  )
-}
-
+  );
+};
 
 export default SuitesBlock;

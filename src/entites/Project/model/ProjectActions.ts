@@ -8,12 +8,14 @@ enum ProjectDataType {
 
 export type GetProjectDataType = {
   type: ProjectDataType;
-  projectById: GetProjectByIdResponseType
+  projectById: GetProjectByIdResponseType;
 };
 
-export function getProjectByAction(project: GetProjectByIdResponseType): GetProjectDataType {
+export function getProjectByAction(
+  project: GetProjectByIdResponseType,
+): GetProjectDataType {
   return {
     type: ProjectDataType.GET_PROJECT_DATA_SUCCESS,
-    projectById: project
+    projectById: project,
   };
 }

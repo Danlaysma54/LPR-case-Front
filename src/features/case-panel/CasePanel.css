@@ -6,7 +6,8 @@
 }
 
 .case-panel__checkbox[type="checkbox"] {
-  width: 20px; height: 20px;
+  width: 20px;
+  height: 20px;
   appearance: none;
   cursor: pointer;
   background: white;
@@ -22,7 +23,7 @@
   align-items: center;
   width: 18px;
   height: 10px;
-  border-bottom:2px solid var(--primary400);
+  border-bottom: 2px solid var(--primary400);
   border-radius: 5%;
 }
 

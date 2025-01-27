@@ -20,6 +20,6 @@ export const useFindSuiteById = (suites: SuiteType[]) => {
       };
       return search(suites);
     },
-    [suites]
+    [suites],
   );
 };
