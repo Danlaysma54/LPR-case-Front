@@ -41,8 +41,7 @@ const AddSuiteModal = ({
         suiteRootId: parentSuite || mockProjectId,
       },
     }).then((res) => {
-      if (res.length == 36) {
-        // TODO: Пофиксить когда будет нормальный респонс
+      if (res.suiteId) {
         window.location.reload();
       }
     });
