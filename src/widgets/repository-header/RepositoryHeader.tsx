@@ -5,6 +5,8 @@ import AddButton from "src/shared/ui/add-button/AddButton";
 import Search from "src/shared/ui/search/Search";
 import AddSuiteModal from "src/widgets/modal-windows/AddSuiteModal";
 
+import { mockProjectId } from "@/config/mockData";
+import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 
 type RepositoryHeaderProps = {
@@ -15,25 +17,15 @@ const RepositoryHeader = ({
   repositoryName: repositoryName,
 }: RepositoryHeaderProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [AllSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
-    suites: [],
+  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
+    suiteId: "",
+    suiteName: "",
+    children: [],
   });
   const openAddSuiteModal = () => {
-    //getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) => (
-    //setAllSuites(res)
-    //))
-    setAllSuites({
-      suites: [
-        {
-          suiteId: "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4b",
-          suiteName: "first_suite",
-        },
-        {
-          suiteId: "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4d",
-          suiteName: "aaaa",
-        },
-      ],
-    });
+    getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
+      setAllSuites(res),
+    );
     setModalOpen(true);
   };
   return (
@@ -41,7 +33,7 @@ const RepositoryHeader = ({
       <AddSuiteModal
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}
-        suites={AllSuites}
+        suites={allSuites.children}
       />
       <div className="repository-header__info">
         <span className="repository-name__info--name">

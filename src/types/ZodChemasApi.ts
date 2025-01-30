@@ -36,7 +36,9 @@ export const GetSuitesByProjectIdRequest = z.object({
 });
 
 export const GetSuitesByProjectIdResponse = z.object({
-  suites: z.array(SuiteDTOSchema),
+  children: z.array(SuiteDTOSchema),
+  suiteName: z.string().min(2),
+  suiteId: z.string().min(2),
 });
 
 export const AddSuiteRequest = z.object({
