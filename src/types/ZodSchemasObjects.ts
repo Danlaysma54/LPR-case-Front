@@ -17,6 +17,7 @@ export type SuiteType = {
   hasChildSuites?: boolean;
   children?: SuiteContentType;
 };
+
 export const SuiteSchema: z.ZodType<SuiteType> = z.lazy(() =>
   z.object({
     suiteRootId: z.string().min(1),
@@ -39,10 +40,13 @@ export const SuiteContentSchema = z.object({
   cases: z.array(CaseSchema),
 });
 
-export const SuiteDTOSchema = z.object({
-  suiteName: z.string().min(1),
-  suiteId: z.string().min(1),
-});
+export const SuiteDTOSchema: z.ZodSchema = z.lazy(() =>
+  z.object({
+    suiteName: z.string().min(1),
+    suiteId: z.string().min(1),
+    children: z.array(SuiteDTOSchema).optional(),
+  }),
+);
 
 export const AddSuiteSchema = z.object({
   suiteName: z.string().min(1),

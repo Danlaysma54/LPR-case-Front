@@ -9,7 +9,7 @@ import {
 export async function getAllSuitesByProjectId({
   projectId,
 }: GetSuitesByProjectIdRequestType): Promise<GetSuitesByProjectIdResponseType> {
-  const url = `/${projectId}/getProject`;
+  const url = `/${projectId}/getAllSuitesInProject`;
   return await get(url);
 }
 

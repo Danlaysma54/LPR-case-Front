@@ -59,23 +59,40 @@
   z-index: 10;
   max-height: 200px;
   margin-top: 4px;
-  overflow-y: auto;
+  overflow: hidden auto;
+  white-space: nowrap;
   background-color: var(--primary500);
   border: 1px solid #ccc;
   border-radius: 8px;
 }
 
 .custom-select__option {
-  padding: 10px;
+  display: flex;
+  width: 100%;
+  padding: 10px 10px 10px 30px;
   font-size: 14px;
   color: var(--base-black);
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.custom-select__item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background-color: #fff;
   transition: background-color 0.3s;
 }
 
-.custom-select__option:hover {
-  color: #fff;
-  background-color: var(--accent2);
+.custom-select__button {
+  position: absolute;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  transition: background-color 0.3s;
 }
 
 .add-suite__buttons {

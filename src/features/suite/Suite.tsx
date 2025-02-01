@@ -22,6 +22,8 @@ type SuiteProps = {
 };
 
 const Suite = ({ suite, suites, setSuites, depth = 0 }: SuiteProps) => {
+  const offset = 1;
+  const limit = 200; // TODO: когда нибудь не поленюсь сделать пагинацию
   const dispatch = useAppDispatch();
   const openedSuites = useAppSelector((state) => state["SUITE_REDUCER"]?.data);
   function changeVisibility(suites: SuiteType[], suiteId: string): SuiteType[] {
@@ -90,6 +92,8 @@ const Suite = ({ suite, suites, setSuites, depth = 0 }: SuiteProps) => {
       getOneLevelSuite({
         projectId: mockProjectId,
         suiteId: suiteId,
+        offset: offset,
+        limit: limit,
       }).then((response) => {
         dispatch(
           saveOpenedSuite({
@@ -113,6 +117,8 @@ const Suite = ({ suite, suites, setSuites, depth = 0 }: SuiteProps) => {
         getOneLevelSuite({
           projectId: mockProjectId,
           suiteId: suiteId,
+          offset: offset,
+          limit: limit,
         }).then((response) => {
           const updatedSuitesWithChildren = appendChildren(
             updatedSuites,

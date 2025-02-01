@@ -5,6 +5,8 @@ import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import EditIcon from "@/assets/svgs/EditIcon";
 import PlusIcon from "@/assets/svgs/PlusIcon";
 import RunIcon from "@/assets/svgs/RunIcon";
+import { mockProjectId } from "@/config/mockData";
+import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
 import { useAppSelector } from "@/shared/hooks/ReduxHooks";
 import Button from "@/shared/ui/button/Button";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
@@ -19,28 +21,18 @@ const RepositoryHeader = ({
   repositoryName: repositoryName,
 }: RepositoryHeaderProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [AllSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
-    suites: [],
+  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
+    suiteId: "",
+    suiteName: "",
+    children: [],
   });
   const openedSuite = useAppSelector(
     (state) => state["ONE_LEVEL_REDUCER"]?.data,
   );
   const openAddSuiteModal = () => {
-    //getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) => (
-    //setAllSuites(res)
-    //))
-    setAllSuites({
-      suites: [
-        {
-          suiteId: "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4b",
-          suiteName: "first_suite",
-        },
-        {
-          suiteId: "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4d",
-          suiteName: "aaaa",
-        },
-      ],
-    });
+    getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
+      setAllSuites(res),
+    );
     setModalOpen(true);
   };
   return (
@@ -48,7 +40,7 @@ const RepositoryHeader = ({
       <AddSuiteModal
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}
-        suites={AllSuites}
+        suites={allSuites.children}
       />
       <div className="repository-header__info">
         <span className="repository-name__info--name">

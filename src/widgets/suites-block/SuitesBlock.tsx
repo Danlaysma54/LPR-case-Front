@@ -10,10 +10,14 @@ import { SuiteType } from "src/types/UnitsType";
 
 const SuitesBlock = () => {
   const [suites, setSuites] = useState<SuiteType[]>([]);
+  const offset = 1;
+  const limit = 200; // TODO: когда нибудь не поленюсь сделать пагинацию
   useEffect(() => {
     getOneLevelSuite({
       projectId: mockProjectId,
       suiteId: mockProjectId,
+      offset: offset,
+      limit: limit,
     }).then((response) => setSuites(response.suites));
   }, []);
 

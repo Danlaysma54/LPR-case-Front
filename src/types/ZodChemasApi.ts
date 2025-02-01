@@ -11,6 +11,8 @@ import {
 export const GetOneLevelDataRequest = z.object({
   projectId: z.string().min(1),
   suiteId: z.string().min(1),
+  offset: z.number().min(0),
+  limit: z.number().min(1),
 });
 
 export const GetOneLevelDataResponse = z.object({
@@ -35,7 +37,9 @@ export const GetSuitesByProjectIdRequest = z.object({
 });
 
 export const GetSuitesByProjectIdResponse = z.object({
-  suites: z.array(SuiteDTOSchema),
+  children: z.array(SuiteDTOSchema),
+  suiteName: z.string().min(2),
+  suiteId: z.string().min(2),
 });
 
 export const AddSuiteRequest = z.object({
@@ -43,4 +47,6 @@ export const AddSuiteRequest = z.object({
   projectId: z.string(),
 });
 
-export const AddSuiteResponse = z.string();
+export const AddSuiteResponse = z.object({
+  suiteId: z.string().min(32),
+});

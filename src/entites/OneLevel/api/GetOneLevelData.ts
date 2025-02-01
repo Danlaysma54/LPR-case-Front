@@ -7,7 +7,9 @@ import {
 export async function getOneLevelSuite({
   projectId,
   suiteId,
+  offset,
+  limit,
 }: GetOneLevelDataRequestType): Promise<GetOneLevelDataResponseType> {
-  const url = `/${projectId}/${suiteId}/getOneLevel`;
+  const url = `/${projectId}/${suiteId}/getOneLevel?offset=${offset}&limit=${limit}`;
   return get(url);
 }
