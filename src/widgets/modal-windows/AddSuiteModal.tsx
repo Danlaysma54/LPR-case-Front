@@ -2,6 +2,8 @@ import "./AddSuiteModal.css";
 
 import React, { useState } from "react";
 
+import DownArrow from "@/assets/svgs/DownArrow";
+import UpArrow from "@/assets/svgs/UpArrow";
 import { mockProjectId } from "@/config/mockData";
 import { addSuite } from "@/entites/Suites/api/SuiteApi";
 import { UseFormField } from "@/shared/hooks/UseFormField";
@@ -13,7 +15,7 @@ import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 type AddSuiteModalProps = {
   isModalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  suites: GetSuitesByProjectIdResponseType;
+  suites: GetSuitesByProjectIdResponseType[];
 };
 
 const AddSuiteModal = ({
@@ -21,11 +23,67 @@ const AddSuiteModal = ({
   setModalOpen,
   suites,
 }: AddSuiteModalProps) => {
-  const [parentSuite, setParentSuite] = useState<string | null>(null);
+  const [parentSuite, setParentSuite] =
+    useState<GetSuitesByProjectIdResponseType | null>(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [expandedSuites, setExpandedSuites] = useState<Record<string, boolean>>(
+    {},
+  );
   const [errorMessage, setErrorMessage] = useState<string>("");
-
   const nameForm = UseFormField();
+
+  const toggleExpand = (suiteId: string) => {
+    setExpandedSuites((prev) => ({
+      ...prev,
+      [suiteId]: !prev[suiteId],
+    }));
+  };
+  const handleParentSuiteSelect = (suite: GetSuitesByProjectIdResponseType) => {
+    setParentSuite(suite);
+    setDropdownOpen(false);
+  };
+
+  const renderSuites = (
+    suites: GetSuitesByProjectIdResponseType[],
+    level = 0,
+  ) => {
+    return suites.map((suite) => (
+      <li key={suite.suiteId} className="custom-select__item">
+        <div
+          className="custom-select__item"
+          style={{ paddingLeft: `${level * 20}px` }}
+        >
+          {suite.children.length > 0 && (
+            <button
+              type="button"
+              className="custom-select__button"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleExpand(suite.suiteId);
+              }}
+              aria-label={expandedSuites[suite.suiteId] ? "Collapse" : "Expand"}
+            >
+              {expandedSuites[suite.suiteId] ? <UpArrow /> : <DownArrow />}
+            </button>
+          )}
+          <button
+            className={`custom-select__option ${
+              parentSuite?.suiteId === suite.suiteId ? "selected" : ""
+            }`}
+            onClick={() => handleParentSuiteSelect(suite)}
+          >
+            {suite.suiteName}
+          </button>
+        </div>
+        {expandedSuites[suite.suiteId] && suite.children.length > 0 ? (
+          <ul className="custom-select__nested">
+            {renderSuites(suite.children, level + 1)}
+          </ul>
+        ) : null}
+      </li>
+    ));
+  };
+
   const closeAddSuiteModal = () => setModalOpen(false);
 
   const handleAddSuite = (e: React.FormEvent) => {
@@ -38,42 +96,13 @@ const AddSuiteModal = ({
       projectId: mockProjectId,
       suite: {
         suiteName: nameForm.value,
-        suiteRootId: parentSuite || mockProjectId,
+        suiteRootId: parentSuite?.suiteId || mockProjectId,
       },
     }).then((res) => {
-      if (res.length == 36) {
-        // TODO: Пофиксить когда будет нормальный респонс
+      if (res.suiteId) {
         window.location.reload();
       }
     });
-  };
-
-  const handleParentSuiteSelect = (suiteId: string) => {
-    setParentSuite(suiteId);
-    setDropdownOpen(false);
-  };
-
-  const handleDropdownKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      setDropdownOpen(false);
-    }
-  };
-
-  const handleOptionKeyDown = (e: React.KeyboardEvent, suiteId: string) => {
-    if (e.key === "Enter" || e.key === " ") {
-      handleParentSuiteSelect(suiteId);
-    }
-  };
-
-  const findParentSuiteName = () => {
-    const parentSuiteName = suites.suites.find(
-      (suite) => suite.suiteId === parentSuite,
-    )?.suiteName;
-    if (parentSuiteName) {
-      return parentSuiteName;
-    } else {
-      return "Project root";
-    }
   };
 
   return (
@@ -104,51 +133,41 @@ const AddSuiteModal = ({
             <div
               className="custom-select"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
-              onKeyDown={handleDropdownKeyDown}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setDropdownOpen(!isDropdownOpen);
+                }
+              }}
               role="button"
               tabIndex={0}
               aria-expanded={isDropdownOpen}
               aria-haspopup="listbox"
             >
               <div className="custom-select__selected">
-                {parentSuite ? findParentSuiteName() : "Project root"}
+                {parentSuite?.suiteName || "Project root"}
               </div>
               {isDropdownOpen ? (
-                <ul
-                  tabIndex={0}
-                  className="custom-select__dropdown"
-                  role="listbox"
-                  aria-activedescendant={parentSuite || undefined}
-                >
-                  <li
-                    onClick={() => handleParentSuiteSelect(mockProjectId)}
-                    onKeyDown={(e) => handleOptionKeyDown(e, "")}
-                    className="custom-select__option"
-                    role="option"
-                    tabIndex={-1}
-                    aria-selected={parentSuite === "" ? "true" : "false"}
-                  >
-                    Project root
-                  </li>
-                  {suites.suites.map((suite) => (
-                    <li
-                      key={suite.suiteId}
-                      onClick={() => handleParentSuiteSelect(suite.suiteId)}
-                      onKeyDown={(e) => handleOptionKeyDown(e, suite.suiteId)}
+                <ul className="custom-select__dropdown">
+                  <li className="custom-select__item">
+                    <button
                       className="custom-select__option"
-                      role="option"
-                      tabIndex={-1}
-                      aria-selected={
-                        parentSuite === suite.suiteId ? "true" : "false"
+                      onClick={() =>
+                        handleParentSuiteSelect({
+                          suiteId: mockProjectId,
+                          suiteName: "Project root",
+                          children: [],
+                        })
                       }
                     >
-                      {suite.suiteName}
-                    </li>
-                  ))}
+                      Project root
+                    </button>
+                  </li>
+                  {renderSuites(suites)}
                 </ul>
               ) : null}
             </div>
           </div>
+
           <div className="add-suite__buttons">
             <Button
               onClick={closeAddSuiteModal}
