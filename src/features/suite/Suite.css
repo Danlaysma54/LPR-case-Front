@@ -21,7 +21,7 @@
 .suite__left-side--arrow {
   position: absolute;
   margin-top: -4px;
-  margin-left: -35px;
+  margin-left: -15px;
 }
 
 .suite__title {
@@ -47,4 +47,8 @@
   cursor: pointer;
   background-color: white;
   border: none;
+}
+
+.suites-block__suites-list {
+  max-height: 700px;
 }

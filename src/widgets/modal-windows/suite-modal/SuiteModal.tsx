@@ -3,26 +3,43 @@ import React, { useState } from "react";
 import DownArrow from "@/assets/svgs/DownArrow";
 import UpArrow from "@/assets/svgs/UpArrow";
 import { mockProjectId } from "@/config/mockData";
-import { addSuite } from "@/entites/Suites/api/SuiteApi";
+import { saveOpenedSuite } from "@/entites/OneLevel/model/OnelLevelActions";
+import { saveRenderedSuites } from "@/entites/Suites/model/SuitesActions";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import { UseFormField } from "@/shared/hooks/UseFormField";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import ModalWindow from "@/shared/ui/modal-window/ModalWindow";
-import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
+import {
+  AddSuiteResponseType,
+  EditSuiteResponseType,
+  GetSuitesByProjectIdResponseType,
+  SuiteType,
+} from "@/types/UnitsType";
 
-import "./AddSuiteModal.css";
+import "./SuiteModal.css";
+import { SelectedSuiteType } from "@/widgets/repository-header/RepositoryHeader";
 
-type AddSuiteModalProps = {
+type SuiteModalProps = {
   isModalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   suites: GetSuitesByProjectIdResponseType[];
+  actionName: string;
+  onSubmitSuite: (params: {
+    projectId: string;
+    suite: { suiteName: string; suiteRootId: string; suiteId: string };
+  }) => Promise<AddSuiteResponseType> | Promise<EditSuiteResponseType>;
+  selectedSuite: SelectedSuiteType | null;
 };
 
-const AddSuiteModal = ({
+const SuiteModal = ({
   isModalOpen,
   setModalOpen,
   suites,
-}: AddSuiteModalProps) => {
+  onSubmitSuite,
+  selectedSuite,
+  actionName,
+}: SuiteModalProps) => {
   const [parentSuite, setParentSuite] =
     useState<GetSuitesByProjectIdResponseType | null>(null);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -31,6 +48,13 @@ const AddSuiteModal = ({
   );
   const [errorMessage, setErrorMessage] = useState<string>("");
   const nameForm = UseFormField();
+  const dispatch = useAppDispatch();
+  const openedSuite = useAppSelector(
+    (state) => state["ONE_LEVEL_REDUCER"]?.data,
+  );
+  const renderedSuites = useAppSelector(
+    (state) => state["RENDERED_SUITES_REDUCER"]?.renderedSuites,
+  );
 
   const toggleExpand = (suiteId: string) => {
     setExpandedSuites((prev) => ({
@@ -38,6 +62,25 @@ const AddSuiteModal = ({
       [suiteId]: !prev[suiteId],
     }));
   };
+
+  function findSuiteById(
+    suites: SuiteType[],
+    suiteId: string,
+  ): SuiteType | undefined {
+    for (const suite of suites) {
+      if (suite.suiteId === suiteId) {
+        return suite;
+      }
+      if (suite.children?.suites) {
+        const found = findSuiteById(suite.children.suites, suiteId);
+        if (found) {
+          return found;
+        }
+      }
+    }
+    return undefined;
+  }
+
   const handleParentSuiteSelect = (suite: GetSuitesByProjectIdResponseType) => {
     setParentSuite(suite);
     setDropdownOpen(false);
@@ -86,21 +129,111 @@ const AddSuiteModal = ({
 
   const closeAddSuiteModal = () => setModalOpen(false);
 
+  function removeSuiteFromList(
+    suites: SuiteType[],
+    suiteToRemove: SuiteType,
+  ): boolean {
+    for (let i = 0; i < suites.length; i++) {
+      if (suites[i].suiteId === suiteToRemove.suiteId) {
+        suites.splice(i, 1);
+        return true;
+      }
+      const childData = suites[i].children;
+      if (childData && childData.suites.length > 0) {
+        const removed = removeSuiteFromList(childData.suites, suiteToRemove);
+        if (removed) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function rerenderSuites(newSuite: {
+    suiteId: string | undefined;
+    suiteName: string;
+    suiteRootId: string;
+  }) {
+    const newOpenedSuite = {
+      ...openedSuite?.suiteContent,
+      suiteName: newSuite.suiteName,
+    };
+    dispatch(saveOpenedSuite(newOpenedSuite));
+    if (!newSuite.suiteId) return;
+    const foundSuite = findSuiteById(renderedSuites, newSuite.suiteId);
+    if (foundSuite) {
+      if (foundSuite.suiteRootId !== newSuite.suiteRootId) {
+        removeSuiteFromList(renderedSuites, foundSuite);
+        foundSuite.suiteRootId = newSuite.suiteRootId;
+        if (newSuite.suiteRootId === mockProjectId) {
+          renderedSuites.push(foundSuite);
+        } else {
+          const newParent = findSuiteById(renderedSuites, newSuite.suiteRootId);
+          if (newParent) {
+            if (!newParent.children) {
+              newParent.hasChildSuites = true;
+              newParent.children = {
+                suites: [],
+                cases: [],
+              };
+            }
+            newParent.children.suites.push(foundSuite);
+          }
+        }
+      }
+      foundSuite.suiteName = newSuite.suiteName;
+    } else {
+      const newSuiteObj: SuiteType = {
+        suiteId: newSuite.suiteId,
+        suiteName: newSuite.suiteName,
+        suiteRootId: newSuite.suiteRootId,
+        numberOfChild: 0,
+        children: {
+          suites: [],
+          cases: [],
+        },
+      };
+      if (newSuite.suiteRootId === mockProjectId) {
+        renderedSuites.push(newSuiteObj);
+      } else {
+        const newParent = findSuiteById(renderedSuites, newSuite.suiteRootId);
+        if (newParent) {
+          if (!newParent.children) {
+            newParent.children = {
+              suites: [],
+              cases: [],
+            };
+          }
+          newParent.hasChildSuites = true;
+          newParent.children?.suites.push(newSuiteObj);
+        }
+      }
+    }
+
+    dispatch(saveRenderedSuites([...renderedSuites]));
+  }
+
   const handleAddSuite = (e: React.FormEvent) => {
     e.preventDefault();
     if (nameForm.value.length < 2 || nameForm.value.length > 255) {
       setErrorMessage("Suite name should be 2-255 characters long");
       return;
     }
-    addSuite({
+    const newSuite = {
+      suiteId: selectedSuite ? selectedSuite.suiteId : "",
+      suiteName: nameForm.value,
+      suiteRootId: parentSuite?.suiteId || mockProjectId,
+    };
+    onSubmitSuite({
       projectId: mockProjectId,
-      suite: {
-        suiteName: nameForm.value,
-        suiteRootId: parentSuite?.suiteId || mockProjectId,
-      },
+      suite: newSuite,
     }).then((res) => {
-      if (res.suiteId) {
-        window.location.reload();
+      if (res && "suiteId" in res) {
+        if (res.suiteId) {
+          newSuite.suiteId = res.suiteId;
+        }
+        rerenderSuites(newSuite);
+        closeAddSuiteModal();
       }
     });
   };
@@ -108,7 +241,7 @@ const AddSuiteModal = ({
   return (
     <ModalWindow isOpened={isModalOpen} onClose={closeAddSuiteModal}>
       <div className="add-suite">
-        <h2 className="add-suite__title">Create Suite</h2>
+        <h2 className="add-suite__title">{actionName} Suite</h2>
         <form className="add-suite__form" onSubmit={handleAddSuite}>
           <div className="add-suite__wrapper">
             <label htmlFor="name" className="add-suite__label">
@@ -175,7 +308,7 @@ const AddSuiteModal = ({
             >
               Cancel
             </Button>
-            <Button type="submit">Create</Button>
+            <Button type="submit">{actionName}</Button>
           </div>
         </form>
       </div>
@@ -183,4 +316,4 @@ const AddSuiteModal = ({
   );
 };
 
-export default AddSuiteModal;
+export default SuiteModal;

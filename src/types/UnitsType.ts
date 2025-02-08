@@ -3,6 +3,8 @@ import z from "zod";
 import {
   AddSuiteRequest,
   AddSuiteResponse,
+  EditSuiteRequest,
+  EditSuiteResponse,
   GetOneLevelDataRequest,
   GetOneLevelDataResponse,
   GetProjectByIdRequest,
@@ -39,5 +41,7 @@ export type GetSuitesByProjectIdResponseType = z.infer<
 export type SuiteContentType = z.infer<typeof SuiteContentSchema>;
 
 export type AddSuiteRequestType = z.infer<typeof AddSuiteRequest>;
-
 export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>;
+
+export type EditSuiteRequestType = z.infer<typeof EditSuiteRequest>;
+export type EditSuiteResponseType = z.infer<typeof EditSuiteResponse>;

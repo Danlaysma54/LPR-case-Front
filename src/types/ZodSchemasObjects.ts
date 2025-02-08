@@ -49,6 +49,13 @@ export const SuiteDTOSchema: z.ZodSchema = z.lazy(() =>
 );
 
 export const AddSuiteSchema = z.object({
+  suiteId: z.string().min(1),
+  suiteName: z.string().min(1),
+  suiteRootId: z.string().min(1),
+});
+
+export const EditSuiteSchema = z.object({
+  suiteId: z.string().min(1),
   suiteName: z.string().min(1),
   suiteRootId: z.string().min(1),
 });

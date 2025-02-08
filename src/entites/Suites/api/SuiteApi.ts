@@ -1,7 +1,9 @@
-import { get, post } from "@/shared/api/fetcher";
+import { get, patch, post } from "@/shared/api/fetcher";
 import {
   AddSuiteRequestType,
   AddSuiteResponseType,
+  EditSuiteRequestType,
+  EditSuiteResponseType,
   GetSuitesByProjectIdRequestType,
   GetSuitesByProjectIdResponseType,
 } from "@/types/UnitsType";
@@ -19,4 +21,12 @@ export async function addSuite({
 }: AddSuiteRequestType): Promise<AddSuiteResponseType> {
   const url = `/${projectId}/addSuite`;
   return await post(url, suite);
+}
+
+export async function editSuite({
+  projectId,
+  suite,
+}: EditSuiteRequestType): Promise<EditSuiteResponseType> {
+  const url = `/${projectId}/editSuite`;
+  return await patch(url, suite);
 }
