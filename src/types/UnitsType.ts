@@ -11,6 +11,7 @@ import {
   GetProjectByIdResponse,
   GetSuitesByProjectIdRequest,
   GetSuitesByProjectIdResponse,
+  RemoveSuiteRequest,
 } from "src/types/ZodChemasApi";
 import {
   CaseSchema,
@@ -45,3 +46,5 @@ export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>;
 
 export type EditSuiteRequestType = z.infer<typeof EditSuiteRequest>;
 export type EditSuiteResponseType = z.infer<typeof EditSuiteResponse>;
+
+export type RemoveSuiteRequestType = z.infer<typeof RemoveSuiteRequest>;

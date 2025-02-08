@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 
 import {
+  PENDING_DELETION_REDUCER,
+  pendingDeletionReducer,
+} from "@/entites/PendingDeletion/model/PendingDeletionReducer";
+import {
   RENDERED_SUITES_REDUCER,
   renderedSuitesReducer,
 } from "@/entites/Suites/model/SuitesReducer";
@@ -20,4 +24,5 @@ export const rootReducer = combineReducers({
   [ONE_LEVEL_REDUCER]: oneLevelDataReducer,
   [SUITE_REDUCER]: openedSuitesReducer,
   [RENDERED_SUITES_REDUCER]: renderedSuitesReducer,
+  [PENDING_DELETION_REDUCER]: pendingDeletionReducer,
 });
