@@ -2,6 +2,7 @@ import {
   AddCaseSchema,
   AddSuiteSchema,
   CaseSchema,
+  EditCaseSchema,
   ProjectSchema,
   SuiteDTOSchema,
   SuiteSchema,
@@ -55,7 +56,14 @@ export const AddCaseRequest = z.object({
   case: AddCaseSchema,
   projectId: z.string(),
 });
-
 export const AddCaseResponse = z.object({
   caseId: z.string().min(32),
+});
+
+export const EditCaseRequest = z.object({
+  case: EditCaseSchema,
+  projectId: z.string(),
+});
+export const EditCaseResponse = z.object({
+  case: CaseSchema,
 });

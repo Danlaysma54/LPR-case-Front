@@ -53,7 +53,6 @@ export function oneLevelDataReducer(
   state: oneLevelDataState = initialStateData,
   action: SaveOpenedSuiteType,
 ) {
-  console.log(action);
   switch (action.type) {
     case "GET_OPENED_SUITE_SUCCESS":
       return {

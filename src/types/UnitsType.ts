@@ -3,6 +3,8 @@ import {
   AddCaseResponse,
   AddSuiteRequest,
   AddSuiteResponse,
+  EditCaseRequest,
+  EditCaseResponse,
   GetOneLevelDataRequest,
   GetOneLevelDataResponse,
   GetProjectByIdRequest,
@@ -48,3 +50,6 @@ export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>;
 
 export type AddCaseRequestType = z.infer<typeof AddCaseRequest>;
 export type AddCaseResponseType = z.infer<typeof AddCaseResponse>;
+
+export type EditCaseRequestType = z.infer<typeof EditCaseRequest>;
+export type EditCaseResponseType = z.infer<typeof EditCaseResponse>;
