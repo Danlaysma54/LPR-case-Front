@@ -1,4 +1,4 @@
-import { get, patch, post } from "@/shared/api/fetcher";
+import { del, get, patch, post } from "@/shared/api/fetcher";
 import {
   AddSuiteRequestType,
   AddSuiteResponseType,
@@ -6,6 +6,7 @@ import {
   EditSuiteResponseType,
   GetSuitesByProjectIdRequestType,
   GetSuitesByProjectIdResponseType,
+  RemoveSuiteRequestType,
 } from "@/types/UnitsType";
 
 export async function getAllSuitesByProjectId({
@@ -29,4 +30,11 @@ export async function editSuite({
 }: EditSuiteRequestType): Promise<EditSuiteResponseType> {
   const url = `/${projectId}/editSuite`;
   return await patch(url, suite);
+}
+export async function removeSuite({
+  projectId,
+  suiteId,
+}: RemoveSuiteRequestType) {
+  const url = `/${projectId}/${suiteId}/deleteSuite`;
+  await del(url, suiteId);
 }

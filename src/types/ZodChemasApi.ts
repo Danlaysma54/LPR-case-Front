@@ -58,3 +58,8 @@ export const EditSuiteRequest = z.object({
 export const EditSuiteResponse = z.object({
   suite: SuiteSchema,
 });
+
+export const RemoveSuiteRequest = z.object({
+  suiteId: z.string(),
+  projectId: z.string(),
+});
