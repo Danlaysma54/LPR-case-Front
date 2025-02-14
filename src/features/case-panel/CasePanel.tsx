@@ -5,7 +5,11 @@ import HandIcon from "src/assets/svgs/HandIcon";
 
 import MoreIcon from "@/assets/svgs/MoreIcon";
 import { mockProjectId } from "@/config/mockData";
+import { deleteCase } from "@/entites/Case/api/CaseApi";
+import { getOneLevelSuite } from "@/entites/OneLevel/api/GetOneLevelData";
+import { saveOpenedSuite } from "@/entites/OneLevel/model/OnelLevelActions";
 import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import ActionMenu from "@/shared/ui/action-menu/ActionMenu";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 import AddCaseModal from "@/widgets/modal-windows/AddCaseModal";
@@ -18,6 +22,12 @@ type CasePanelProps = {
 const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const openedSuite = useAppSelector(
+    (state) => state["ONE_LEVEL_REDUCER"]?.data,
+  );
+  const dispatch = useAppDispatch();
+  const offset = 1;
+  const limit = 200;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -43,7 +53,24 @@ const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
   };
 
   const handleDelete = () => {
-    console.log("Удалить");
+    deleteCase(mockProjectId, caseId);
+    if (openedSuite?.suiteContent.cases.find((el) => el.caseId == caseId)) {
+      getOneLevelSuite({
+        projectId: mockProjectId,
+        suiteId: openedSuite?.suiteId,
+        offset: offset,
+        limit: limit,
+      }).then((response) => {
+        dispatch(
+          saveOpenedSuite({
+            cases: response.cases,
+            suites: response.suites,
+            suiteId: openedSuite?.suiteId,
+            suiteName: openedSuite?.suiteName,
+          }),
+        );
+      });
+    }
   };
 
   return (

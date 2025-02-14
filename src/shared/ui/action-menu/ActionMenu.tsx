@@ -36,7 +36,6 @@ const ActionMenu: React.FC<ActionMenuProps> = ({
           onDelete();
           onClose();
         }}
-        disabled
       >
         <div className="action-menu__element-block">
           <DeleteIcon color={"#C03744"} />
