@@ -8,7 +8,6 @@ export type ButtonProps = {
   disabled?: boolean;
   children: string | React.ReactNode;
   type?: "submit" | "reset" | "button" | undefined;
-  style?: { backgroundColor: string };
 };
 
 const Button = ({
@@ -17,10 +16,8 @@ const Button = ({
   disabled = false,
   children,
   type,
-  style,
 }: ButtonProps) => (
   <button
-    style={style}
     type={type}
     className={`custom-button ${className} `}
     onClick={onClick}

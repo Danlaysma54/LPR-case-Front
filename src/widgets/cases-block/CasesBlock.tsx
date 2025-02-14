@@ -12,7 +12,6 @@ const CasesBlock = ({ headerTitle: headerTitle }: CasesBlockProps) => {
   const openedSuite = useAppSelector(
     (state) => state["ONE_LEVEL_REDUCER"]?.data,
   );
-
   return (
     <div className="cases-block">
       <div className="cases-block__title">{headerTitle} </div>
@@ -26,8 +25,9 @@ const CasesBlock = ({ headerTitle: headerTitle }: CasesBlockProps) => {
               );
             })
           : null}
+
         {openedSuite?.suiteContent?.suites
-          ? openedSuite?.suiteContent.cases.map((el) => {
+          ? openedSuite?.suiteContent.cases?.map((el) => {
               return (
                 <li key={el.caseId} className="cases-block__cases">
                   <CasePanel name={el.caseName} />
@@ -35,6 +35,11 @@ const CasesBlock = ({ headerTitle: headerTitle }: CasesBlockProps) => {
               );
             })
           : null}
+
+        {openedSuite?.suiteContent?.suites?.length == 0 &&
+        openedSuite?.suiteContent?.cases?.length == 0 ? (
+          <div className="cases-block__empty">The suite is empty</div>
+        ) : null}
       </ul>
     </div>
   );
