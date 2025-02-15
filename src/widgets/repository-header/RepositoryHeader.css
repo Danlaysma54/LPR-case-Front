@@ -32,3 +32,20 @@
   display: flex;
   gap: 8px;
 }
+
+.repository-header__button-additional {
+  padding: 10px 12px;
+  background-color: var(--neutrals400);
+}
+
+.repository-header__button-additional:hover {
+  background-color: var(--hover-neutrals400);
+}
+
+.repository-header__button-additional:active {
+  background-color: var(--active-neutrals400);
+}
+
+.repository-header__buttons--add {
+  padding: 10px 12px;
+}

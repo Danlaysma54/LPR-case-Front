@@ -38,13 +38,29 @@ export const post = async <D>(url: string, data: D) => {
   return response.json();
 };
 
-export const del = async (url: string) => {
+export const patch = async <D>(url: string, data: D) => {
   const token = localStorage.getItem("token");
   const response = await fetch(`${serverUrl}${url}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.status == 404) {
+    return "404";
+  }
+  return response.json();
+};
+
+export const del = async <D>(url: string, data: D) => {
+  const token = localStorage.getItem("token");
+  await fetch(`${serverUrl}${url}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
+      body: JSON.stringify(data),
     },
   });
-  return response.json();
 };

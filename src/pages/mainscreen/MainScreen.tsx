@@ -1,6 +1,7 @@
 import "./MainScreen.css";
 
 import { useEffect, useState } from "react";
+
 import { mockProjectId } from "src/config/mockData";
 import { getProjectById } from "src/entites/Project/api/projectApi";
 import { getProjectByAction } from "src/entites/Project/model/ProjectActions";

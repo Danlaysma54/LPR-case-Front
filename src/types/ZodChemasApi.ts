@@ -1,12 +1,14 @@
+import z from "zod";
+
 import {
   AddCaseSchema,
   AddSuiteSchema,
   CaseSchema,
+  EditSuiteSchema,
   ProjectSchema,
   SuiteDTOSchema,
   SuiteSchema,
 } from "src/types/ZodSchemasObjects";
-import z from "zod";
 
 export const GetOneLevelDataRequest = z.object({
   projectId: z.string().min(1),
@@ -16,8 +18,8 @@ export const GetOneLevelDataRequest = z.object({
 });
 
 export const GetOneLevelDataResponse = z.object({
-  suites: z.array(SuiteSchema),
-  cases: z.array(CaseSchema),
+  suites: z.array(SuiteSchema).optional(),
+  cases: z.array(CaseSchema).optional(),
   suiteName: z.string().min(2),
   suiteId: z.string().min(2),
 });
@@ -46,7 +48,6 @@ export const AddSuiteRequest = z.object({
   suite: AddSuiteSchema,
   projectId: z.string(),
 });
-
 export const AddSuiteResponse = z.object({
   suiteId: z.string().min(32),
 });
@@ -58,4 +59,17 @@ export const AddCaseRequest = z.object({
 
 export const AddCaseResponse = z.object({
   caseId: z.string().min(32),
+});
+
+export const EditSuiteRequest = z.object({
+  suite: EditSuiteSchema,
+  projectId: z.string(),
+});
+export const EditSuiteResponse = z.object({
+  suite: SuiteSchema,
+});
+
+export const RemoveSuiteRequest = z.object({
+  suiteId: z.string(),
+  projectId: z.string(),
 });

@@ -2,11 +2,11 @@ import "./CasePanel.css";
 
 import HandIcon from "src/assets/svgs/HandIcon";
 
-type SuitePanelProps = {
+type CasePanelProps = {
   name: string;
 };
 
-const CasePanel = ({ name: name }: SuitePanelProps) => {
+const CasePanel = ({ name: name }: CasePanelProps) => {
   return (
     <div className="case-panel">
       <input type={"checkbox"} className="case-panel__checkbox" />
