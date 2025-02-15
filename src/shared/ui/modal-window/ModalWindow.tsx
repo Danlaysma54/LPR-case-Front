@@ -1,6 +1,7 @@
 import "./ModalWindow.css";
 
 import React from "react";
+
 import CloseIcon from "src/assets/svgs/CloseIcon";
 
 export type ModalWindowProps = {

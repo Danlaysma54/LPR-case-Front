@@ -1,8 +1,12 @@
+import z from "zod";
+
 import {
   AddCaseRequest,
   AddCaseResponse,
   AddSuiteRequest,
   AddSuiteResponse,
+  EditSuiteRequest,
+  EditSuiteResponse,
   EditCaseRequest,
   EditCaseResponse,
   GetOneLevelDataRequest,
@@ -11,6 +15,7 @@ import {
   GetProjectByIdResponse,
   GetSuitesByProjectIdRequest,
   GetSuitesByProjectIdResponse,
+  RemoveSuiteRequest,
 } from "src/types/ZodChemasApi";
 import {
   AutomationStatusSchema,
@@ -20,7 +25,6 @@ import {
   SuiteContentSchema,
   SuiteSchema,
 } from "src/types/ZodSchemasObjects";
-import z from "zod";
 
 export type SuiteType = z.infer<typeof SuiteSchema>;
 export type CaseType = z.infer<typeof CaseSchema>;
@@ -47,6 +51,11 @@ export type SuiteContentType = z.infer<typeof SuiteContentSchema>;
 
 export type AddSuiteRequestType = z.infer<typeof AddSuiteRequest>;
 export type AddSuiteResponseType = z.infer<typeof AddSuiteResponse>;
+
+export type EditSuiteRequestType = z.infer<typeof EditSuiteRequest>;
+export type EditSuiteResponseType = z.infer<typeof EditSuiteResponse>;
+
+export type RemoveSuiteRequestType = z.infer<typeof RemoveSuiteRequest>;
 
 export type AddCaseRequestType = z.infer<typeof AddCaseRequest>;
 export type AddCaseResponseType = z.infer<typeof AddCaseResponse>;

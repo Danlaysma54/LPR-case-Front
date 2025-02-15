@@ -6,6 +6,8 @@
 
 :root {
   --accent2: #ff9700;
+  --accent3: #ffbb58;
+  --accent4: #e58800;
   --primary400: #bdbdbd;
   --primary200: #f8fbfb;
   --background: #f0f5f6;
@@ -15,8 +17,11 @@
   --neutrals100: #f6f6f6;
   --primary1000: #393939;
   --neutrals400: #b5b5b5;
+  --hover-neutrals400: #e3d8c7;
+  --active-neutrals400: #f7dbb2;
   --primary500: #f9f9f9;
   --primary700: #efefef;
+  --primary800: #fafafa;
 }
 
 @font-face {

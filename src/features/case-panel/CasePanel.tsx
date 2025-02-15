@@ -1,8 +1,8 @@
 import "./CasePanel.css";
 
-import React, { useEffect, useRef, useState } from "react";
-import HandIcon from "src/assets/svgs/HandIcon";
+import { useEffect, useRef, useState } from "react";
 
+import HandIcon from "@/assets/svgs/HandIcon";
 import MoreIcon from "@/assets/svgs/MoreIcon";
 import { mockProjectId } from "@/config/mockData";
 import { deleteCase } from "@/entites/Case/api/CaseApi";
@@ -19,8 +19,14 @@ type CasePanelProps = {
   caseId: string;
 };
 
-const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
+const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
+  const [isEditCaseModalOpen, setEditCaseModalOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
+    suiteId: "",
+    suiteName: "",
+    children: [],
+  });
   const panelRef = useRef<HTMLDivElement>(null);
   const openedSuite = useAppSelector(
     (state) => state["ONE_LEVEL_REDUCER"]?.data,
@@ -38,13 +44,6 @@ const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const [isEditCaseModalOpen, setEditCaseModalOpen] = useState(false);
-  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
-    suiteId: "",
-    suiteName: "",
-    children: [],
-  });
   const handleEdit = () => {
     getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
       setAllSuites(res),
@@ -54,7 +53,7 @@ const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
 
   const handleDelete = () => {
     deleteCase(mockProjectId, caseId);
-    if (openedSuite?.suiteContent.cases.find((el) => el.caseId == caseId)) {
+    if (openedSuite?.suiteContent.cases?.find((el) => el.caseId == caseId)) {
       getOneLevelSuite({
         projectId: mockProjectId,
         suiteId: openedSuite?.suiteId,

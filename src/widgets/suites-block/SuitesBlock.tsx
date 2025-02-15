@@ -1,14 +1,19 @@
 import "./SuitesBlock.css";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { saveRenderedSuites } from "@/entites/Suites/model/SuitesActions";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import MenuIcon from "src/assets/svgs/MenuIcon";
 import { mockProjectId } from "src/config/mockData";
 import { getOneLevelSuite } from "src/entites/OneLevel/api/GetOneLevelData";
 import Suite from "src/features/suite/Suite";
-import { SuiteType } from "src/types/UnitsType";
 
 const SuitesBlock = () => {
-  const [suites, setSuites] = useState<SuiteType[]>([]);
+  const suites = useAppSelector(
+    (state) => state["RENDERED_SUITES_REDUCER"]?.renderedSuites,
+  );
+  const dispatch = useAppDispatch();
   const offset = 1;
   const limit = 200; // TODO: когда нибудь не поленюсь сделать пагинацию
   useEffect(() => {
@@ -17,8 +22,12 @@ const SuitesBlock = () => {
       suiteId: mockProjectId,
       offset: offset,
       limit: limit,
-    }).then((response) => setSuites(response.suites));
-  }, []);
+    }).then((response) => {
+      if (response.suites) {
+        dispatch(saveRenderedSuites(response.suites));
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="suites-block">
@@ -31,7 +40,7 @@ const SuitesBlock = () => {
           return (
             <div key={suite.suiteId} className="suites-list__wrapper">
               <li className="suites-list--el">
-                <Suite suite={suite} suites={suites} setSuites={setSuites} />
+                <Suite suite={suite} />
               </li>
             </div>
           );
