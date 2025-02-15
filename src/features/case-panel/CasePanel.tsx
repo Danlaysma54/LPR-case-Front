@@ -52,24 +52,25 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
   };
 
   const handleDelete = () => {
-    deleteCase(mockProjectId, caseId);
-    if (openedSuite?.suiteContent.cases?.find((el) => el.caseId == caseId)) {
-      getOneLevelSuite({
-        projectId: mockProjectId,
-        suiteId: openedSuite?.suiteId,
-        offset: offset,
-        limit: limit,
-      }).then((response) => {
-        dispatch(
-          saveOpenedSuite({
-            cases: response.cases,
-            suites: response.suites,
-            suiteId: openedSuite?.suiteId,
-            suiteName: openedSuite?.suiteName,
-          }),
-        );
-      });
-    }
+    deleteCase(mockProjectId, caseId).then(() => {
+      if (openedSuite?.suiteContent.cases?.find((el) => el.caseId == caseId)) {
+        getOneLevelSuite({
+          projectId: mockProjectId,
+          suiteId: openedSuite?.suiteId,
+          offset: offset,
+          limit: limit,
+        }).then((response) => {
+          dispatch(
+            saveOpenedSuite({
+              cases: response.cases,
+              suites: response.suites,
+              suiteId: openedSuite?.suiteId,
+              suiteName: openedSuite?.suiteName,
+            }),
+          );
+        });
+      }
+    });
   };
 
   return (
