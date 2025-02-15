@@ -1,7 +1,6 @@
 import "./CasePanel.css";
 
-import React, { useEffect, useRef, useState } from "react";
-import HandIcon from "src/assets/svgs/HandIcon";
+import { useEffect, useRef, useState } from "react";
 
 import MoreIcon from "@/assets/svgs/MoreIcon";
 import { mockProjectId } from "@/config/mockData";
@@ -9,16 +8,21 @@ import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
 import ActionMenu from "@/shared/ui/action-menu/ActionMenu";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 import AddCaseModal from "@/widgets/modal-windows/AddCaseModal";
+import HandIcon from "src/assets/svgs/HandIcon";
 
 type CasePanelProps = {
   name: string;
   caseId: string;
 };
 
-const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
+const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
+  const [isEditCaseModalOpen, setEditCaseModalOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
-
+  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
+    suiteId: "",
+    suiteName: "",
+    children: [],
+  });
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -28,13 +32,7 @@ const CasePanel: React.FC<CasePanelProps> = ({ name, caseId }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const [isEditCaseModalOpen, setEditCaseModalOpen] = useState(false);
-  const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
-    suiteId: "",
-    suiteName: "",
-    children: [],
-  });
+  const panelRef = useRef<HTMLDivElement>(null);
   const handleEdit = () => {
     getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
       setAllSuites(res),

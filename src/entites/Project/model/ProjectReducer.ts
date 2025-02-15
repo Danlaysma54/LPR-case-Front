@@ -1,6 +1,5 @@
-import { GetProjectDataType } from "src/entites/Project/model/ProjectActions";
-
 import { GetProjectByIdResponseType } from "@/types/UnitsType";
+import { GetProjectDataType } from "src/entites/Project/model/ProjectActions";
 
 export const PROJECT_DATA_REDUCER = "PROJECT_DATA_REDUCER";
 

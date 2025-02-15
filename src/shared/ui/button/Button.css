@@ -3,8 +3,6 @@
   gap: 2px;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 84px;
   height: 36px;
   padding: 9px 22px;
   font-family: Golos, sans-serif;
@@ -14,4 +12,12 @@
   background-color: var(--accent2);
   border: none;
   border-radius: 16px;
+}
+
+.custom-button:hover {
+  background-color: var(--accent3);
+}
+
+.custom-button:active {
+  background-color: var(--accent4);
 }
