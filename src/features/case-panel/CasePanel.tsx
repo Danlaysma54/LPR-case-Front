@@ -2,13 +2,17 @@ import "./CasePanel.css";
 
 import { useEffect, useRef, useState } from "react";
 
+import HandIcon from "@/assets/svgs/HandIcon";
 import MoreIcon from "@/assets/svgs/MoreIcon";
 import { mockProjectId } from "@/config/mockData";
+import { deleteCase } from "@/entites/Case/api/CaseApi";
+import { getOneLevelSuite } from "@/entites/OneLevel/api/GetOneLevelData";
+import { saveOpenedSuite } from "@/entites/OneLevel/model/OnelLevelActions";
 import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import ActionMenu from "@/shared/ui/action-menu/ActionMenu";
 import { GetSuitesByProjectIdResponseType } from "@/types/UnitsType";
 import AddCaseModal from "@/widgets/modal-windows/AddCaseModal";
-import HandIcon from "src/assets/svgs/HandIcon";
 
 type CasePanelProps = {
   name: string;
@@ -23,6 +27,14 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
     suiteName: "",
     children: [],
   });
+  const panelRef = useRef<HTMLDivElement>(null);
+  const openedSuite = useAppSelector(
+    (state) => state["ONE_LEVEL_REDUCER"]?.data,
+  );
+  const dispatch = useAppDispatch();
+  const offset = 1;
+  const limit = 200;
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -32,7 +44,6 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  const panelRef = useRef<HTMLDivElement>(null);
   const handleEdit = () => {
     getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
       setAllSuites(res),
@@ -41,7 +52,25 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
   };
 
   const handleDelete = () => {
-    console.log("Удалить");
+    deleteCase(mockProjectId, caseId).then(() => {
+      if (openedSuite?.suiteContent.cases?.find((el) => el.caseId == caseId)) {
+        getOneLevelSuite({
+          projectId: mockProjectId,
+          suiteId: openedSuite?.suiteId,
+          offset: offset,
+          limit: limit,
+        }).then((response) => {
+          dispatch(
+            saveOpenedSuite({
+              cases: response.cases,
+              suites: response.suites,
+              suiteId: openedSuite?.suiteId,
+              suiteName: openedSuite?.suiteName,
+            }),
+          );
+        });
+      }
+    });
   };
 
   return (

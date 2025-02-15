@@ -1,4 +1,4 @@
-import { patch, post } from "@/shared/api/fetcher";
+import { del, patch, post } from "@/shared/api/fetcher";
 import {
   AddCaseRequestType,
   AddCaseResponseType,
@@ -18,4 +18,9 @@ export async function editCase(
 ): Promise<EditCaseResponseType> {
   const url = `/${args.projectId}/editTestCase`;
   return await patch(url, args.case);
+}
+
+export async function deleteCase(projectId: string, caseId: string) {
+  const url = `/${projectId}/${caseId}/deleteTestCase`;
+  await del(url);
 }

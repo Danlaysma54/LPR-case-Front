@@ -72,6 +72,13 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
     setModalOpen(true);
   };
 
+  const openAddCaseModal = () => {
+    getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
+      setAllSuites(res),
+    );
+    setCaseModalOpen(true);
+  };
+
   const openEditSuiteModal = () => {
     if (!openedSuite) return;
 
@@ -203,7 +210,10 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
         >
           <PlusIcon /> Suite
         </Button>
-        <Button className="repository-header__buttons--add">
+        <Button
+          className="repository-header__buttons--add"
+          onClick={openAddCaseModal}
+        >
           <PlusIcon /> Case
         </Button>
         {openedSuite?.suiteId ? (
