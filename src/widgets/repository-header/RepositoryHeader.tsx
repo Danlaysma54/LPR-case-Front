@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import Button from "@/shared/ui/button/Button";
 import RemovedElement from "@/shared/ui/removedElement/RemovedElement";
 import { GetSuitesByProjectIdResponseType, SuiteType } from "@/types/UnitsType";
+import AddCaseModal from "@/widgets/modal-windows/AddCaseModal";
 import RemoveModal from "@/widgets/modal-windows/remove-modal/RemoveModal";
 import SuiteModal from "@/widgets/modal-windows/suite-modal/SuiteModal";
 import Search from "src/shared/ui/search/Search";
@@ -47,6 +48,7 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
     null,
   );
   const dispatch = useAppDispatch();
+  const [isCaseModalOpen, setCaseModalOpen] = useState(false);
   const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
     suiteId: "",
     suiteName: "",
@@ -152,6 +154,19 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
   };
   return (
     <div className="repository-header">
+      <AddCaseModal
+        isModalOpen={isCaseModalOpen}
+        setModalOpen={setCaseModalOpen}
+        suites={allSuites.children}
+      />
+      <SuiteModal
+        actionName={editMode ? "Edit" : "Create"}
+        suites={allSuites.children}
+        selectedSuite={selectedSuite}
+        onSubmitSuite={editMode ? editSuite : addSuite}
+        isModalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+      />
       {pendingElements?.map((el, index) => {
         return (
           <RemovedElement

@@ -1,6 +1,7 @@
 import z from "zod";
 
 import {
+  AddCaseSchema,
   AddSuiteSchema,
   CaseSchema,
   EditSuiteSchema,
@@ -49,6 +50,15 @@ export const AddSuiteRequest = z.object({
 });
 export const AddSuiteResponse = z.object({
   suiteId: z.string().min(32),
+});
+
+export const AddCaseRequest = z.object({
+  case: AddCaseSchema,
+  projectId: z.string(),
+});
+
+export const AddCaseResponse = z.object({
+  caseId: z.string().min(32),
 });
 
 export const EditSuiteRequest = z.object({

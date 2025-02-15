@@ -33,6 +33,8 @@ export const SuiteSchema: z.ZodType<SuiteType> = z.lazy(() =>
 export const CaseSchema = z.object({
   caseName: z.string().min(1),
   caseId: z.string().min(1),
+  automationStatusId: z.string().min(1).optional(),
+  layerId: z.string().min(1).optional(),
 });
 
 export const SuiteContentSchema = z.object({
@@ -58,4 +60,21 @@ export const EditSuiteSchema = z.object({
   suiteId: z.string().min(1),
   suiteName: z.string().min(1),
   suiteRootId: z.string().min(1),
+});
+
+export const AddCaseSchema = z.object({
+  testCaseName: z.string().min(1),
+  layerId: z.string().min(1),
+  suiteId: z.string().min(1),
+  isAutomatedId: z.string().min(1),
+});
+
+export const LayerSchema = z.object({
+  layerName: z.string().min(1),
+  layerId: z.string().min(1),
+});
+
+export const AutomationStatusSchema = z.object({
+  automationStatusId: z.string().min(1),
+  name: z.string().min(1),
 });
