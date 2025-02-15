@@ -68,6 +68,13 @@ export const AddCaseSchema = z.object({
   suiteId: z.string().min(1),
   isAutomatedId: z.string().min(1),
 });
+export const EditCaseSchema = z.object({
+  testCaseId: z.string().min(1),
+  testCaseName: z.string().min(1),
+  layer: z.string().min(1),
+  suiteId: z.string().min(1),
+  isAutomated: z.string().min(1),
+});
 
 export const LayerSchema = z.object({
   layerName: z.string().min(1),

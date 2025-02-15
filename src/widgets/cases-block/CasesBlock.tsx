@@ -30,7 +30,7 @@ const CasesBlock = ({ headerTitle: headerTitle }: CasesBlockProps) => {
           ? openedSuite?.suiteContent.cases?.map((el) => {
               return (
                 <li key={el.caseId} className="cases-block__cases">
-                  <CasePanel name={el.caseName} />
+                  <CasePanel name={el.caseName} caseId={el.caseId} />
                 </li>
               );
             })

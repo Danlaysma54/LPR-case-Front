@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DownArrow from "@/assets/svgs/DownArrow";
 import UpArrow from "@/assets/svgs/UpArrow";
 import { mockProjectId } from "@/config/mockData";
-import { addCase } from "@/entites/Case/api/CaseApi";
+import { addCase, editCase } from "@/entites/Case/api/CaseApi";
 import { saveOpenedSuite } from "@/entites/OneLevel/model/OnelLevelActions";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/ReduxHooks";
 import { UseFormField } from "@/shared/hooks/UseFormField";
@@ -20,6 +20,8 @@ type AddCaseModalProps = {
   isModalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   suites: GetSuitesByProjectIdResponseType[];
+  isEditMode?: boolean;
+  caseId?: string;
 };
 
 const layersMock: LayerType[] = [
@@ -53,6 +55,8 @@ const AddCaseModal = ({
   isModalOpen,
   setModalOpen,
   suites,
+  isEditMode,
+  caseId,
 }: AddCaseModalProps) => {
   const [parentSuite, setParentSuite] =
     useState<GetSuitesByProjectIdResponseType | null>(null);
@@ -128,6 +132,33 @@ const AddCaseModal = ({
     ));
   };
 
+  function editCaseReq() {
+    editCase({
+      projectId: mockProjectId,
+      case: {
+        testCaseId: caseId || "",
+        suiteId: parentSuite?.suiteId || mockProjectId,
+        testCaseName: nameForm.value,
+        layer: selectedLayer.layerId,
+        isAutomated: selectedAutomationStatus.automationStatusId,
+      },
+    }).then((res) => {
+      if (res && openedSuite?.suiteId == parentSuite?.suiteId) {
+        const currentCase = openedSuite?.suiteContent.cases.find(
+          (el) => el.caseId === caseId,
+        );
+        if (currentCase) {
+          currentCase.caseName = nameForm.value;
+          currentCase.layerId = selectedLayer.layerId;
+          currentCase.automationStatusId =
+            selectedAutomationStatus.automationStatusId;
+        }
+        dispatch(saveOpenedSuite(openedSuite?.suiteContent));
+      }
+      closeAddCaseModal();
+    });
+  }
+
   const handleAddCase = (e: React.FormEvent) => {
     e.preventDefault();
     if (nameForm.value.length < 2 || nameForm.value.length > 255) {
@@ -139,28 +170,29 @@ const AddCaseModal = ({
       setErrorMessage("Choose parent suite");
       return;
     }
-    addCase({
-      projectId: mockProjectId,
-      case: {
-        suiteId: parentSuite?.suiteId || mockProjectId,
-        testCaseName: nameForm.value,
-        layerId: selectedLayer.layerId,
-        isAutomatedId: selectedAutomationStatus.automationStatusId,
-      },
-    }).then((res) => {
-      if (res && openedSuite?.suiteId == parentSuite?.suiteId) {
-        // ДАНЯ НУ ПОЖАЛУЙСТА ОТПРАВЛЯЙ ОБЪЕКТ В RESPONSE сори за мат TODO
-        openedSuite?.suiteContent.cases.push({
-          caseName: nameForm.value,
-          caseId: res,
-          layerId: selectedLayer.layerId,
-          automationStatusId: selectedAutomationStatus.automationStatusId,
+    isEditMode
+      ? editCaseReq()
+      : addCase({
+          projectId: mockProjectId,
+          case: {
+            suiteId: parentSuite?.suiteId || mockProjectId,
+            testCaseName: nameForm.value,
+            layerId: selectedLayer.layerId,
+            isAutomatedId: selectedAutomationStatus.automationStatusId,
+          },
+        }).then((res) => {
+          if (res && openedSuite?.suiteId == parentSuite?.suiteId) {
+            // ДАНЯ НУ ПОЖАЛУЙСТА ОТПРАВЛЯЙ ОБЪЕКТ В RESPONSE сори за мат TODO
+            openedSuite?.suiteContent.cases.push({
+              caseName: nameForm.value,
+              caseId: res,
+              layerId: selectedLayer.layerId,
+              automationStatusId: selectedAutomationStatus.automationStatusId,
+            });
+            dispatch(saveOpenedSuite(openedSuite?.suiteContent));
+          }
+          closeAddCaseModal();
         });
-        console.log(openedSuite);
-        dispatch(saveOpenedSuite(openedSuite?.suiteContent));
-      }
-      closeAddCaseModal();
-    });
   };
 
   const closeAddCaseModal = () => setModalOpen(false);
@@ -168,9 +200,10 @@ const AddCaseModal = ({
   return (
     <ModalWindow isOpened={isModalOpen} onClose={closeAddCaseModal}>
       <div className="add-suite">
-        <h2 className="add-suite__title">Create Case</h2>
+        <h2 className="add-suite__title">
+          {isEditMode ? "Edit" : "Create"} Case
+        </h2>
         <form className="add-suite__form" onSubmit={handleAddCase}>
-          {/* Case Name Input */}
           <div className="add-suite__wrapper">
             <label htmlFor="name" className="add-suite__label">
               Case Name
@@ -187,7 +220,6 @@ const AddCaseModal = ({
             <div className="add-suite__error-message">{errorMessage}</div>
           </div>
 
-          {/* Parent Suite Selector */}
           <div className="add-suite__wrapper">
             <label htmlFor="parent-suite" className="add-suite__label">
               Parent Suite
@@ -216,7 +248,6 @@ const AddCaseModal = ({
             </div>
           </div>
 
-          {/* Layer Selector */}
           <div className="add-suite__wrapper">
             <label htmlFor="layer" className="add-suite__label">
               Layer
@@ -258,7 +289,6 @@ const AddCaseModal = ({
             </div>
           </div>
 
-          {/* Automation Status Selector */}
           <div className="add-suite__wrapper">
             <label htmlFor="automation-status" className="add-suite__label">
               Automation Status
@@ -305,7 +335,6 @@ const AddCaseModal = ({
             </div>
           </div>
 
-          {/* Form Buttons */}
           <div className="add-suite__buttons">
             <Button
               onClick={closeAddCaseModal}
@@ -313,7 +342,7 @@ const AddCaseModal = ({
             >
               Cancel
             </Button>
-            <Button type="submit">Create</Button>
+            <Button type="submit">{isEditMode ? "Edit" : "Create"}</Button>
           </div>
         </form>
       </div>

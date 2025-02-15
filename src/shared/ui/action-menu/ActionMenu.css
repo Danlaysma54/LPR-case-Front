@@ -1,0 +1,37 @@
+.action-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: calc(100% + 4px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+}
+
+.action-menu__button {
+  padding: 8px 12px;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.action-menu__button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.action-menu__button:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.action-menu__element-block {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}

@@ -53,14 +53,13 @@ export const patch = async <D>(url: string, data: D) => {
   }
   return response.json();
 };
-
-export const del = async <D>(url: string, data: D) => {
+export const del = async (url: string) => {
   const token = localStorage.getItem("token");
-  await fetch(`${serverUrl}${url}`, {
+  const response = await fetch(`${serverUrl}${url}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
-      body: JSON.stringify(data),
     },
   });
+  return response.json();
 };

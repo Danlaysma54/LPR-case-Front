@@ -4,6 +4,7 @@ import {
   AddCaseSchema,
   AddSuiteSchema,
   CaseSchema,
+  EditCaseSchema,
   EditSuiteSchema,
   ProjectSchema,
   SuiteDTOSchema,
@@ -48,6 +49,7 @@ export const AddSuiteRequest = z.object({
   suite: AddSuiteSchema,
   projectId: z.string(),
 });
+
 export const AddSuiteResponse = z.object({
   suiteId: z.string().min(32),
 });
@@ -56,7 +58,6 @@ export const AddCaseRequest = z.object({
   case: AddCaseSchema,
   projectId: z.string(),
 });
-
 export const AddCaseResponse = z.object({
   caseId: z.string().min(32),
 });
@@ -72,4 +73,12 @@ export const EditSuiteResponse = z.object({
 export const RemoveSuiteRequest = z.object({
   suiteId: z.string(),
   projectId: z.string(),
+});
+
+export const EditCaseRequest = z.object({
+  case: EditCaseSchema,
+  projectId: z.string(),
+});
+export const EditCaseResponse = z.object({
+  case: CaseSchema,
 });
