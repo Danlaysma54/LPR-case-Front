@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router";
+
 import CloneIcon from "@/assets/svgs/CloneIcon";
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import EditIcon from "@/assets/svgs/EditIcon";
@@ -23,6 +25,7 @@ import AddCaseModal from "@/widgets/modal-windows/AddCaseModal";
 import RemoveModal from "@/widgets/modal-windows/remove-modal/RemoveModal";
 import SuiteModal from "@/widgets/modal-windows/suite-modal/SuiteModal";
 import Search from "src/shared/ui/search/Search";
+
 import "./RepositoryHeader.css";
 
 type RepositoryHeaderProps = {
@@ -48,6 +51,7 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
     null,
   );
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isCaseModalOpen, setCaseModalOpen] = useState(false);
   const [allSuites, setAllSuites] = useState<GetSuitesByProjectIdResponseType>({
     suiteId: "",
@@ -73,10 +77,7 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
   };
 
   const openAddCaseModal = () => {
-    getAllSuitesByProjectId({ projectId: mockProjectId }).then((res) =>
-      setAllSuites(res),
-    );
-    setCaseModalOpen(true);
+    navigate("/createCase");
   };
 
   const openEditSuiteModal = () => {
