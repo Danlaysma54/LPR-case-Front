@@ -1,5 +1,9 @@
 .create-case {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   padding: 36px 30px 38px 32px;
+  overflow: hidden;
 }
 
 .create-case__navigation {
@@ -29,6 +33,19 @@
   border-bottom: 0.5px solid var(--primary400);
 }
 
+.create-case__form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.create-case__form-content {
+  flex: 1;
+  padding-bottom: 20px;
+  overflow-y: auto;
+}
+
 .create-case__form-title {
   display: flex;
   flex-direction: column;
@@ -51,4 +68,68 @@
 
 .create-case__form-info {
   display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.create-case__form-suite-select {
+  max-width: 261px;
+}
+
+.create-case__form-status-select {
+  max-width: 151px;
+}
+
+.create-case__form-layer-select {
+  max-width: 102px;
+}
+
+.create-case__form-project {
+  max-width: 363px;
+}
+
+.create-case__form-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.case-step__actions {
+  padding: 9px 10px 14px;
+  cursor: pointer;
+  background-color: var(--primary700);
+  border: none;
+  border-radius: 12px;
+}
+
+.create-case__add-step {
+  width: 100%;
+  max-width: 110px;
+  padding: 7px 12px;
+  margin-top: 10px;
+  border-radius: 16px;
+}
+
+.create-case__form-border {
+  margin-top: auto;
+  border-top: 1px solid var(--primary400);
+}
+
+.create-case__form-buttons {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  padding-top: 16px;
+  background-color: white;
+}
+
+.create-case__form-steps-title {
+  margin-top: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary1000);
+  text-transform: uppercase;
 }

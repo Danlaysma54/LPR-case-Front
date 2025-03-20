@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "layerId": "afce2a2c-4651-4436-8305-7f1d2d42e22d",
+      "layerName": "E2E"
+    },
+    {
+      "layerId": "a5746704-a423-4139-b57b-49676c91c4c3",
+      "layerName": "API"
+    },
+    {
+      "layerId": "4847ad45-99ba-4e50-93ed-141206d7fc4d",
+      "layerName": "UNIT"
+    }
+  ]
+}

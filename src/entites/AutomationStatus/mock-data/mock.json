@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "automationStatusId": "c47fa783-f165-4b33-b934-780e59261b2f",
+      "name": "Manual"
+    },
+    {
+      "automationStatusId": "90518baa-ca2d-4272-8dba-41703443791f",
+      "name": "Automated"
+    }
+  ]
+}
