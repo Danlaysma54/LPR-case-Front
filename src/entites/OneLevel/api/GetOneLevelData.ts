@@ -1,4 +1,4 @@
-import { get } from "src/shared/api/fetcher";
+import { api } from "@/shared/api/fetcher";
 import {
   GetOneLevelDataRequestType,
   GetOneLevelDataResponseType,
@@ -11,5 +11,5 @@ export async function getOneLevelSuite({
   limit,
 }: GetOneLevelDataRequestType): Promise<GetOneLevelDataResponseType> {
   const url = `/${projectId}/${suiteId}/getOneLevel?offset=${offset}&limit=${limit}`;
-  return get(url);
+  return api.get(url);
 }

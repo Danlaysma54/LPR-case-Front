@@ -1,4 +1,4 @@
-import { get } from "src/shared/api/fetcher";
+import { api } from "@/shared/api/fetcher";
 import {
   GetProjectByIdRequestType,
   GetProjectByIdResponseType,
@@ -8,5 +8,5 @@ export async function getProjectById({
   projectId,
 }: GetProjectByIdRequestType): Promise<GetProjectByIdResponseType> {
   const url = `/${projectId}/getProject`;
-  return await get(url);
+  return await api.get(url);
 }

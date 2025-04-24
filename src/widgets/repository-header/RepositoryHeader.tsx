@@ -8,6 +8,7 @@ import EditIcon from "@/assets/svgs/EditIcon";
 import PlusIcon from "@/assets/svgs/PlusIcon";
 import RunIcon from "@/assets/svgs/RunIcon";
 import { mockProjectId } from "@/config/mockData";
+import { useAuthStore } from "@/entites/Auth/store/AuthStore";
 import { savePendingDeletion } from "@/entites/PendingDeletion/model/PendingDeletionActions";
 import {
   addSuite,
@@ -160,16 +161,21 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
     );
     restoreElementToUI(pending.data);
   };
+
+  function handleLeave() {
+    useAuthStore.getState().clearToken();
+  }
+
   return (
     <div className="repository-header">
       <AddCaseModal
         isModalOpen={isCaseModalOpen}
         setModalOpen={setCaseModalOpen}
-        suites={allSuites.children}
+        suites={allSuites?.children}
       />
       <SuiteModal
         actionName={editMode ? "Edit" : "Create"}
-        suites={allSuites.children}
+        suites={allSuites?.children}
         selectedSuite={selectedSuite}
         onSubmitSuite={editMode ? editSuite : addSuite}
         isModalOpen={isModalOpen}
@@ -191,7 +197,7 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
         onSubmitSuite={editMode ? editSuite : addSuite}
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}
-        suites={allSuites.children}
+        suites={allSuites?.children}
         selectedSuite={selectedSuite}
       />
       <RemoveModal
@@ -240,6 +246,14 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
           </>
         ) : null}
         <Search />
+        <div className="repository-header-leave">
+          <Button
+            className="repository-header__button-leave"
+            onClick={handleLeave}
+          >
+            Ливнуть с катки
+          </Button>
+        </div>
       </div>
     </div>
   );

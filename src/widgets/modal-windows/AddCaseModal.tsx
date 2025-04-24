@@ -165,7 +165,6 @@ const AddCaseModal = ({
       setErrorMessage("Case name should be 2-255 characters long");
       return;
     }
-
     if (!parentSuite?.suiteId) {
       setErrorMessage("Choose parent suite");
       return;
