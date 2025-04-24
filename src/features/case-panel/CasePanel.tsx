@@ -51,26 +51,26 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
     setEditCaseModalOpen(true);
   };
 
-  const handleDelete = () => {
-    deleteCase(mockProjectId, caseId).then(() => {
-      if (openedSuite?.suiteContent.cases?.find((el) => el.caseId == caseId)) {
-        getOneLevelSuite({
-          projectId: mockProjectId,
+  const handleDelete = async () => {
+    await deleteCase(mockProjectId, caseId);
+
+    if (openedSuite?.suiteContent.cases?.some((el) => el.caseId === caseId)) {
+      const response = await getOneLevelSuite({
+        projectId: mockProjectId,
+        suiteId: openedSuite?.suiteId,
+        offset: offset,
+        limit: limit,
+      });
+
+      dispatch(
+        saveOpenedSuite({
+          cases: response.cases,
+          suites: response.suites,
           suiteId: openedSuite?.suiteId,
-          offset: offset,
-          limit: limit,
-        }).then((response) => {
-          dispatch(
-            saveOpenedSuite({
-              cases: response.cases,
-              suites: response.suites,
-              suiteId: openedSuite?.suiteId,
-              suiteName: openedSuite?.suiteName,
-            }),
-          );
-        });
-      }
-    });
+          suiteName: openedSuite?.suiteName,
+        }),
+      );
+    }
   };
 
   return (
@@ -80,7 +80,7 @@ const CasePanel = ({ name: name, caseId: caseId }: CasePanelProps) => {
         isEditMode={true}
         caseId={caseId}
         setModalOpen={setEditCaseModalOpen}
-        suites={allSuites.children}
+        suites={allSuites?.children}
       />
       <div className="case-panel__more-wrapper">
         <button

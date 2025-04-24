@@ -1,64 +1,52 @@
+import { useAuthStore } from "@/entites/Auth/store/AuthStore";
+import { getTokenFromStorage } from "@/lib/get-token-from-storage";
 import { serverUrl } from "src/config/configPaths";
 
-export const get = async (url: string) => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`${serverUrl}${url}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  try {
-    if (response.status >= 400 && response.status < 500) {
-      console.error(`Error fetching project with ID ${url}:`, response);
-      throw new Error();
-    }
-    if (response.status >= 500) {
-      console.error("Server error", response);
-      throw new Error();
-    }
-    return await response.json();
-  } catch (error) {
-    console.error(`Error fetching project with ID ${url}:`, error);
+const handleError = (response: Response) => {
+  if (response.status === 401) {
+    useAuthStore.getState().clearToken();
+    throw new Error("UNAUTHORIZED");
   }
-};
-export const post = async <D>(url: string, data: D) => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`${serverUrl}${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  if (response.status == 404) {
-    return "404";
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
-  return response.json();
+  return response;
 };
 
-export const patch = async <D>(url: string, data: D) => {
-  const token = localStorage.getItem("token");
-  const response = await fetch(`${serverUrl}${url}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  if (response.status == 404) {
-    return "404";
-  }
-  return response.json();
+const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
+  const token = getTokenFromStorage();
+  const headers = {
+    ...options.headers,
+    Authorization: `Bearer ${token}`,
+  };
+
+  const response = await fetch(`${serverUrl}${url}`, { ...options, headers });
+  return handleError(response);
 };
-export const del = async (url: string) => {
-  const token = localStorage.getItem("token");
-  await fetch(`${serverUrl}${url}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+
+export const api = {
+  get: async (url: string) => {
+    const response = await fetchWithAuth(url, { method: "GET" });
+    return response.json();
+  },
+  post: async <D>(url: string, data: D) => {
+    const response = await fetchWithAuth(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.json();
+  },
+  patch: async <D>(url: string, data: D) => {
+    const response = await fetchWithAuth(url, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.json();
+  },
+  delete: async (url: string) => {
+    const response = await fetchWithAuth(url, { method: "DELETE" });
+    return response.json();
+  },
 };

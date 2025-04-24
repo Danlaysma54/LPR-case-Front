@@ -1,0 +1,194 @@
+.login-page {
+  display: flex;
+  height: calc(100dvh - 40px);
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.login-page__card {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+}
+
+.login-page__stepper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 50%;
+  margin: 20px 65px 20px 20px;
+  background-color: var(--background);
+  border-radius: 24px;
+}
+
+.stepper__swapeable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.stepper__swapeable img {
+  margin-bottom: 40px;
+}
+
+.login-page__bottom-side {
+  position: absolute;
+  bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.login-page__right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.right-side__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 65px;
+  margin-bottom: 16px;
+  font-family: Meutas, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--base-black);
+}
+
+.right-side__enter-text {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 36px;
+  color: var(--base-black);
+}
+
+.form__input-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.input-box__input {
+  height: 48px;
+  padding-left: 16px;
+  font-size: 16px;
+  background-color: #f3f4f5;
+  border: none;
+  border-radius: 16px;
+}
+
+.input-box__input:focus {
+  outline: none;
+}
+
+.input-box__input:hover {
+  background-color: var(--primary300);
+}
+
+.password__eye {
+  position: absolute;
+  margin-top: 78px;
+  margin-left: 417px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.hide-eye {
+  fill: var(--primary1000);
+}
+
+.open-eye {
+  fill: var(--primary1000);
+}
+
+.input-box__input:hover + .password__eye {
+  background-color: var(--primary300);
+}
+
+.input-box__label {
+  margin-top: 40px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--base-black);
+}
+
+.form__remember-me {
+  display: flex;
+  gap: 15px;
+  margin-top: 43px;
+  margin-bottom: 40px;
+  color: var(--primary600);
+}
+
+.remember-me__checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.right-side__enter {
+  width: 460px;
+  margin-top: 80px;
+}
+
+.right-side__to-register {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.to-register__text {
+  font-size: 16px;
+  line-height: 16px;
+  color: var(--primary600);
+  letter-spacing: 0.4px;
+}
+
+.form-input__button {
+  width: 100%;
+  max-width: 100%;
+  height: 48px;
+  font-size: 16px;
+  color: #fff;
+  text-transform: none;
+  cursor: pointer;
+  background-color: var(--accent2);
+  border: none;
+  border-radius: 16px;
+}
+
+.form-input__button:hover {
+  background-color: #ffbb58;
+}
+
+.form-input__button:active {
+  background-color: var(--accent4);
+}
+
+.form-input__button:disabled {
+  color: #fff;
+  background-color: var(--primary300);
+}
+
+.to-register__navigate {
+  font-size: 16px;
+  line-height: 16px;
+  color: var(--primary1000);
+  text-decoration: underline;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}

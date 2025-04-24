@@ -49,3 +49,15 @@
 .repository-header__buttons--add {
   padding: 10px 12px;
 }
+
+.repository-header-leave {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.repository-header__button-leave {
+  margin-right: 10px;
+  background-color: var(--primary400);
+  border-radius: 5px;
+}
