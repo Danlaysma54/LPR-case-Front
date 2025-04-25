@@ -1,17 +1,19 @@
-import { Outlet } from "react-router-dom";
+import React from "react";
 
 import Header from "src/widgets/header/Header";
 import LeftSide from "src/widgets/left-side/LeftSide";
 
-const MainLayout = () => {
+type MainLayoutProps = {
+  children: React.ReactNode;
+};
+
+const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="main-screen">
       <Header />
       <div className="main-block">
         <LeftSide />
-        <main className="main-block__content">
-          <Outlet />
-        </main>
+        <main className="main-block__content">{children}</main>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import MainScreen from "@/pages/mainscreen/MainScreen";
 import SignIn from "@/pages/sign-in/SignIn";
 import SignUp from "@/pages/sign-up/SignUp";
 import { useAuthRedirect } from "@/shared/hooks/UseAuthRedirect";
+import MainLayout from "@/shared/ui/main-layout/MainLayout";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const token = getTokenFromStorage();
@@ -15,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <MainLayout>{children}</MainLayout>;
 };
 
 const GuestRoute = ({ children }: { children: JSX.Element }) => {
