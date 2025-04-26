@@ -1,0 +1,42 @@
+[
+  {
+    "projectId": "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c",
+    "planId": "1",
+    "planName": "Bebra plan",
+    "casesCount": 3,
+    "createdAt": "2025-04-01",
+    "updatedAt": "2025-04-25"
+  },
+  {
+    "projectId": "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c",
+    "planId": "2",
+    "planName": "Punin Plan",
+    "casesCount": 5,
+    "createdAt": "2020-04-05",
+    "updatedAt": "2023-04-25"
+  },
+  {
+    "projectId": "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c",
+    "planId": "3",
+    "planName": "I want chicky naggets",
+    "casesCount": 3,
+    "createdAt": "2025-01-01",
+    "updatedAt": "2025-04-25"
+  },
+  {
+    "projectId": "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c",
+    "planId": "4",
+    "planName": "Artem plan",
+    "casesCount": 0,
+    "createdAt": "2025-02-01",
+    "updatedAt": "2025-03-02"
+  },
+  {
+    "projectId": "ad192b5b-5096-4cc9-bd5f-8bf4aaa02c4c",
+    "planId": "5",
+    "planName": "Хочу питсы...",
+    "casesCount": 99,
+    "createdAt": "1970-05-02",
+    "updatedAt": "1972-22-22"
+  }
+]

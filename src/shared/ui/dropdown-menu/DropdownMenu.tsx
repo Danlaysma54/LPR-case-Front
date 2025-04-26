@@ -10,14 +10,23 @@ export type MenuItem = {
 
 type DropdownMenuProps = {
   items: MenuItem[];
+  toggleClassName?: string;
 };
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  items,
+  toggleClassName,
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); // Реф для отслеживания кликов вне меню
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const getToggleClassName = () => {
+    const baseClass = toggleClassName || "dropdown-menu__toggle";
+    return isOpen ? `${baseClass} is-open` : baseClass;
   };
 
   useEffect(() => {
@@ -42,7 +51,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
   return (
     <div className="dropdown-menu" ref={dropdownRef}>
       <button
-        className="dropdown-menu__toggle"
+        className={getToggleClassName()}
         type="button"
         onClick={toggleMenu}
       >

@@ -85,3 +85,12 @@ export const AutomationStatusSchema = z.object({
   automationStatusId: z.string().min(1),
   name: z.string().min(1),
 });
+
+export const TestPlanSchema = z.object({
+  projectId: z.string().min(1),
+  planId: z.string().min(1),
+  planName: z.string().min(1),
+  casesCount: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});

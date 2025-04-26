@@ -5,6 +5,8 @@ import CreateCase from "@/pages/create-case/CreateCase";
 import MainScreen from "@/pages/mainscreen/MainScreen";
 import SignIn from "@/pages/sign-in/SignIn";
 import SignUp from "@/pages/sign-up/SignUp";
+import TestPlan from "@/pages/test-plan/TestPlan";
+import TestRun from "@/pages/test-run/TestRun";
 import { useAuthRedirect } from "@/shared/hooks/UseAuthRedirect";
 import MainLayout from "@/shared/ui/main-layout/MainLayout";
 
@@ -61,6 +63,22 @@ function App() {
         element={
           <ProtectedRoute>
             <CreateCase />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="plans"
+        element={
+          <ProtectedRoute>
+            <TestPlan />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="runs"
+        element={
+          <ProtectedRoute>
+            <TestRun />
           </ProtectedRoute>
         }
       />

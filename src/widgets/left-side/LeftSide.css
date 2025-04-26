@@ -60,8 +60,21 @@
   gap: 8px;
   color: #393939;
   cursor: pointer;
+  background-color: var(--primary200);
+  border: none;
 }
 
 .left-side__block:hover {
   color: var(--accent2);
+}
+
+.left-side__block.active {
+  color: var(--accent2);
+  cursor: initial;
+  border-radius: 4px;
+}
+
+.left-side__block.active svg {
+  fill: var(--accent2);
+  stroke: var(--accent2);
 }

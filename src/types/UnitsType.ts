@@ -24,6 +24,7 @@ import {
   ProjectSchema,
   SuiteContentSchema,
   SuiteSchema,
+  TestPlanSchema,
 } from "src/types/ZodSchemasObjects";
 
 export type SuiteType = z.infer<typeof SuiteSchema>;
@@ -31,6 +32,7 @@ export type CaseType = z.infer<typeof CaseSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type LayerType = z.infer<typeof LayerSchema>;
 export type AutomationStatusType = z.infer<typeof AutomationStatusSchema>;
+export type TestPlanType = z.infer<typeof TestPlanSchema>;
 
 export type GetOneLevelDataRequestType = z.infer<typeof GetOneLevelDataRequest>;
 export type GetOneLevelDataResponseType = z.infer<

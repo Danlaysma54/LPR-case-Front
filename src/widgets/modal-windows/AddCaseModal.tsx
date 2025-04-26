@@ -144,7 +144,7 @@ const AddCaseModal = ({
       },
     }).then((res) => {
       if (res && openedSuite?.suiteId == parentSuite?.suiteId) {
-        const currentCase = openedSuite?.suiteContent.cases.find(
+        const currentCase = openedSuite?.suiteContent?.cases?.find(
           (el) => el.caseId === caseId,
         );
         if (currentCase) {
@@ -182,9 +182,9 @@ const AddCaseModal = ({
         }).then((res) => {
           if (res && openedSuite?.suiteId == parentSuite?.suiteId) {
             // ДАНЯ НУ ПОЖАЛУЙСТА ОТПРАВЛЯЙ ОБЪЕКТ В RESPONSE сори за мат TODO
-            openedSuite?.suiteContent.cases.push({
+            openedSuite?.suiteContent?.cases?.push({
               caseName: nameForm.value,
-              caseId: res,
+              caseId: res.caseId,
               layerId: selectedLayer.layerId,
               automationStatusId: selectedAutomationStatus.automationStatusId,
             });
