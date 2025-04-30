@@ -82,3 +82,9 @@ export const EditCaseRequest = z.object({
 export const EditCaseResponse = z.object({
   case: CaseSchema,
 });
+
+export const AddTestPlanRequest = z.object({
+  testPlanName: z.string().min(1),
+  projectId: z.string(),
+  testCases: z.array(z.string()).optional(),
+});

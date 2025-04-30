@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { getTokenFromStorage } from "@/lib/get-token-from-storage";
 import CreateCase from "@/pages/create-case/CreateCase";
+import CreatePlan from "@/pages/create-plan/CreatePlan";
 import MainScreen from "@/pages/mainscreen/MainScreen";
 import SignIn from "@/pages/sign-in/SignIn";
 import SignUp from "@/pages/sign-up/SignUp";
@@ -79,6 +80,14 @@ function App() {
         element={
           <ProtectedRoute>
             <TestRun />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="create-plan"
+        element={
+          <ProtectedRoute>
+            <CreatePlan />
           </ProtectedRoute>
         }
       />

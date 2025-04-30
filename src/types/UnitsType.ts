@@ -16,6 +16,7 @@ import {
   GetSuitesByProjectIdRequest,
   GetSuitesByProjectIdResponse,
   RemoveSuiteRequest,
+  AddTestPlanRequest,
 } from "src/types/ZodChemasApi";
 import {
   AutomationStatusSchema,
@@ -64,3 +65,13 @@ export type AddCaseResponseType = z.infer<typeof AddCaseResponse>;
 
 export type EditCaseRequestType = z.infer<typeof EditCaseRequest>;
 export type EditCaseResponseType = z.infer<typeof EditCaseResponse>;
+
+export type AddTestPlanRequestType = z.infer<typeof AddTestPlanRequest>;
+
+export type CheckboxListType = {
+  isActiveMainCheckbox: boolean;
+  checkboxes: {
+    id: string;
+    isChecked: boolean;
+  }[];
+};

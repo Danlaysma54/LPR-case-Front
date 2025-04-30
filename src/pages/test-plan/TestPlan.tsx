@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router";
+
 import PlusIcon from "@/assets/svgs/PlusIcon";
 import { getTestPlansMock } from "@/entites/TestPlan/api/TestPlanMock";
 import Button from "@/shared/ui/button/Button";
 import Search from "@/shared/ui/search/Search";
-
 import { TestPlanType } from "@/types/UnitsType";
 
 import "./TestPlan.css";
@@ -13,9 +14,14 @@ import TestPlanRow from "@/widgets/test-plan-row/TestPlanRow";
 const TestPlan = () => {
   const [testPlans, setTestPlans] = useState<TestPlanType[]>([]);
   const [isActiveCheckbox, setIsActiveCheckbox] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     getTestPlansMock().then((res) => setTestPlans(res));
   }, []);
+
+  const toCreatePlan = () => {
+    navigate("/create-plan");
+  };
 
   const onEdit = (id: string) => {
     console.log("Edit", id);
@@ -30,7 +36,7 @@ const TestPlan = () => {
       <div className="test-plan__header">
         <h1 className="test-plan__title">Test plans</h1>
         <div className="test-plan__interact">
-          <Button>
+          <Button onClick={toCreatePlan}>
             <PlusIcon /> Create plan
           </Button>
           <Search placeholder="Search for test plans" />

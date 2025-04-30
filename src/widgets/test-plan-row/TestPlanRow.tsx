@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import EditIcon from "@/assets/svgs/EditIcon";
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import DropdownMenu, { MenuItem } from "@/shared/ui/dropdown-menu/DropdownMenu";
 import { TestPlanType } from "@/types/UnitsType";
 
@@ -18,18 +17,6 @@ const TestPlanRow = ({
   onRemove,
   isActiveCheckbox,
 }: TestPlanRowProps) => {
-  const [isMainCheckState, setIsMainCheckState] = useState<boolean>(false);
-  const [isManuallyChanged, setIsManuallyChanged] = useState<boolean>(false); // <- добавили
-
-  const checkMainState = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsManuallyChanged(true);
-    setIsMainCheckState(event.target.checked);
-  };
-
-  useEffect(() => {
-    setIsMainCheckState(isActiveCheckbox);
-  }, [isActiveCheckbox]);
-
   const menuItems: MenuItem[] = [
     {
       label: (
@@ -50,20 +37,10 @@ const TestPlanRow = ({
       onClick: () => onRemove(testPlan.planId),
     },
   ];
-
-  const checkboxChecked = isManuallyChanged
-    ? isMainCheckState
-    : isActiveCheckbox;
-
   return (
     <div className="test-plan__row">
       <div className="test-plan__cell">
-        <input
-          type="checkbox"
-          onChange={checkMainState}
-          checked={checkboxChecked}
-          className="test-plan__checkbox"
-        />
+        <Checkbox isActiveMainCheckbox={isActiveCheckbox} />
         {testPlan.planName}
       </div>
       <div className="test-plan__cell">{testPlan.createdAt}</div>

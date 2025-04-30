@@ -1,4 +1,3 @@
-import "./CreateCase.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -18,6 +17,8 @@ import {
   GetSuitesByProjectIdResponseType,
   LayerType,
 } from "@/types/UnitsType";
+
+import "./CreateCase.css";
 
 export type caseStepType = {
   stepAction: string;
@@ -182,7 +183,13 @@ const CreateCase = () => {
         <div className="create-case__form-border"></div>
         <div className="create-case__form-buttons">
           <Button type="button">Save</Button>
-          <Button type="button">Cancel</Button>
+          <Button
+            type="button"
+            onClick={() => navigate("/")}
+            className="create-case__cancel"
+          >
+            Cancel
+          </Button>
         </div>
       </form>
     </div>
