@@ -132,3 +132,41 @@
 .create-plan__cancel {
   background-color: var(--neutrals400);
 }
+
+.selected-suite-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.selected-case-name {
+  font-size: 14px;
+}
+
+.selected-case {
+  display: flex;
+  gap: 16px;
+  padding-left: 36px;
+  margin-top: 20px;
+  border-left: 0.5px solid var(--primary400);
+}
+
+.create-plan__selected-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.selected-suite__name-part {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.delete-case__button {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}

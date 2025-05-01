@@ -5,6 +5,7 @@ import BackArrow from "@/assets/svgs/BackArrow";
 import PlusIcon from "@/assets/svgs/PlusIcon";
 import { mockProjectId } from "@/config/mockData";
 import { getAllAutomationStatusesMock } from "@/entites/AutomationStatus/api/AutomationStatusMockApi";
+import { addCase } from "@/entites/Case/api/CaseApi";
 import { getAllLayersMock } from "@/entites/Layer/api/LayerMockApi";
 import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
 import CaseStep from "@/features/case-step/CaseStep";
@@ -13,18 +14,13 @@ import Button from "@/shared/ui/button/Button";
 import DropdownSelect from "@/shared/ui/dropdown-select/DropdownSelect";
 import Input from "@/shared/ui/input/Input";
 import {
+  AddCaseStepsType,
   AutomationStatusType,
   GetSuitesByProjectIdResponseType,
   LayerType,
 } from "@/types/UnitsType";
 
 import "./CreateCase.css";
-
-export type caseStepType = {
-  stepAction: string;
-  data: string;
-  stepResult: string;
-};
 
 const CreateCase = () => {
   const navigate = useNavigate();
@@ -41,7 +37,7 @@ const CreateCase = () => {
   >([]);
   const [selectedStatus, setSelectedStatus] =
     useState<AutomationStatusType | null>(null);
-  const [steps, setSteps] = useState<caseStepType[]>([]);
+  const [steps, setSteps] = useState<AddCaseStepsType[]>([]);
   const [layers, setLayers] = useState<LayerType[]>([]);
   const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
   useEffect(() => {
@@ -78,7 +74,10 @@ const CreateCase = () => {
     setSelectedLayer(layer);
   };
   const addStep = () => {
-    setSteps([...steps, { stepAction: "", data: "", stepResult: "" }]);
+    setSteps([
+      ...steps,
+      { stepDescription: "", stepData: "", stepResult: "", stepNumber: 1 },
+    ]);
   };
   const removeStep = (index: number) => {
     const newSteps = steps.filter((_, i) => i !== index);
@@ -89,6 +88,23 @@ const CreateCase = () => {
       i === index ? { ...step, [field]: value } : step,
     );
     setSteps(newSteps);
+  };
+
+  const createCase = async () => {
+    if (titleField.value === "" || !selectedSuite) return;
+    const result = await addCase({
+      projectId: mockProjectId,
+      case: {
+        testCaseName: titleField.value,
+        suiteId: selectedSuite?.suiteId ?? "",
+        isAutomatedId: selectedStatus?.automationStatusId ?? "",
+        layerId: selectedLayer?.layerId ?? "",
+        steps: steps,
+      },
+    });
+    if (result.addedEntityId) {
+      navigate("/");
+    }
   };
 
   return (
@@ -182,7 +198,9 @@ const CreateCase = () => {
         </div>
         <div className="create-case__form-border"></div>
         <div className="create-case__form-buttons">
-          <Button type="button">Save</Button>
+          <Button type="button" onClick={createCase}>
+            Save
+          </Button>
           <Button
             type="button"
             onClick={() => navigate("/")}

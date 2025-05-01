@@ -2,7 +2,7 @@
   display: flex;
   gap: 13px;
   margin-top: 22px;
-  margin-left: 48px;
+  margin-left: 15px;
 }
 
 .case-panel__checkbox[type="checkbox"] {

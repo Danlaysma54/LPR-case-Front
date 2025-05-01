@@ -1,5 +1,5 @@
 import "./SelectCasesModal.css";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import DownArrow from "@/assets/svgs/DownArrow";
 import FolderIcon from "@/assets/svgs/FolderIcon";
@@ -25,16 +25,24 @@ export type GetAllSuitesByProjectIdSuitesType = {
 };
 
 type SelectCasesModalProps = {
+  initialCheckedSuites: string[];
+  initialCheckedCases: string[];
+  onSave: (suites: string[], cases: string[]) => void;
   closeModal?: () => void;
 };
 
-const SelectCasesModal = ({ closeModal }: SelectCasesModalProps) => {
+const SelectCasesModal = ({
+  closeModal,
+  onSave,
+  initialCheckedCases,
+  initialCheckedSuites,
+}: SelectCasesModalProps) => {
   const [tree, setTree] = useState<GetAllSuitesByProjectIdSuitesType[]>([]);
   const [expandedSuites, setExpandedSuites] = useState<Set<string>>(new Set());
   const [casesMap, setCasesMap] = useState<Record<string, CaseType[]>>({});
   const [checkedSet, setCheckedSet] = useState<CheckedSet>({
-    suites: new Set(),
-    cases: new Set(),
+    suites: new Set(initialCheckedSuites),
+    cases: new Set(initialCheckedCases),
   });
   const [selectedSuiteId, setSelectedSuiteId] = useState<string | null>(null);
   const [selectedSuiteName, setSelectedSuiteName] = useState<string>("");
@@ -55,6 +63,11 @@ const SelectCasesModal = ({ closeModal }: SelectCasesModalProps) => {
     },
     [],
   );
+
+  const handleSave = () => {
+    onSave(Array.from(checkedSet.suites), Array.from(checkedSet.cases));
+    closeModal?.();
+  };
 
   const handleToggleSuite = useCallback(
     async (node: GetAllSuitesByProjectIdSuitesType, checked: boolean) => {
@@ -125,12 +138,16 @@ const SelectCasesModal = ({ closeModal }: SelectCasesModalProps) => {
     return (
       <div key={node.suiteId} style={{ marginLeft: 20 }} className="suite-node">
         <div className="suite-node--header">
-          <button
-            className="suite-node__arrow-btn"
-            onClick={() => toggleExpand(node)}
-          >
-            {isExpanded ? <UpArrow /> : <DownArrow />}
-          </button>
+          {Array.isArray(node.children) && node.children.length > 0 ? (
+            <button
+              className="suite-node__arrow-btn"
+              onClick={() => toggleExpand(node)}
+            >
+              {isExpanded ? <UpArrow /> : <DownArrow />}
+            </button>
+          ) : (
+            <div className="suite-node__empty-div" />
+          )}
           <Checkbox
             isActiveMainCheckbox={isChecked}
             onChange={(checked) => handleToggleSuite(node, checked)}
@@ -244,7 +261,7 @@ const SelectCasesModal = ({ closeModal }: SelectCasesModalProps) => {
             <Button className="right-side__cancel" onClick={closeModal}>
               Cancel
             </Button>
-            <Button>Save</Button>
+            <Button onClick={handleSave}>Save</Button>
           </div>
         </div>
       </div>

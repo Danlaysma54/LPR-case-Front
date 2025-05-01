@@ -19,6 +19,7 @@ import {
   AddTestPlanRequest,
 } from "src/types/ZodChemasApi";
 import {
+  AddCaseStepsSchema,
   AutomationStatusSchema,
   CaseSchema,
   LayerSchema,
@@ -60,6 +61,7 @@ export type EditSuiteResponseType = z.infer<typeof EditSuiteResponse>;
 
 export type RemoveSuiteRequestType = z.infer<typeof RemoveSuiteRequest>;
 
+export type AddCaseStepsType = z.infer<typeof AddCaseStepsSchema>;
 export type AddCaseRequestType = z.infer<typeof AddCaseRequest>;
 export type AddCaseResponseType = z.infer<typeof AddCaseResponse>;
 

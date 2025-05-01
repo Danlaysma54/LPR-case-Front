@@ -184,7 +184,7 @@ const AddCaseModal = ({
             // ДАНЯ НУ ПОЖАЛУЙСТА ОТПРАВЛЯЙ ОБЪЕКТ В RESPONSE сори за мат TODO
             openedSuite?.suiteContent?.cases?.push({
               caseName: nameForm.value,
-              caseId: res.caseId,
+              caseId: res.addedEntityId,
               layerId: selectedLayer.layerId,
               automationStatusId: selectedAutomationStatus.automationStatusId,
             });
