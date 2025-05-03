@@ -1,99 +1,50 @@
-.test-plan__header {
+.plan {
+  padding: 36px 32px;
+}
+
+.plan__header {
   display: flex;
-  flex-direction: column;
   gap: 25px;
-  max-width: 100%;
-  padding: 32px 32px 20px;
-  background-color: var(--background);
 }
 
-.test-plan__title {
-  font-size: 24px;
-  font-weight: 500;
-  color: #333;
+.plan__back-button {
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
 }
 
-.test-plan__interact {
-  display: flex;
-  gap: 8px;
-}
-
-.test-plan__main {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 24px 22px;
-}
-
-.test-plan__row {
-  display: grid;
-  grid-template-columns: 6fr 1fr 1fr 1fr 0.5fr;
-  gap: 6px;
-  align-items: center;
-}
-
-.test-plan__row--header {
-  color: var(--primary900);
-}
-
-.test-plan__cell {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.plan__title {
   overflow: hidden;
-  color: var(--primary1000);
+  font-size: 22px;
+  font-weight: 400;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.test-plan__checkbox[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  appearance: none;
-  cursor: pointer;
-  background: white;
-  border: 3px solid var(--primary400);
-  border-radius: 2px;
+.plan__info {
+  margin-top: 44px;
 }
 
-.test-plan__checkbox[type="checkbox"]:checked {
-  background: var(--accent2)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10' fill='none'%3E%3Cpath d='M4 9.4L0 5.4L1.4 4L4 6.6L10.6 0L12 1.4L4 9.4Z' fill='white'/%3E%3C/svg%3E")
-    no-repeat center;
-  border-color: var(--accent2);
+.plan__test-cases {
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.test-plan__action {
-  position: relative;
+.plan__upper-line {
+  width: 100%;
+  margin-top: 10px;
+  border-bottom: 0.5px solid var(--primary400);
+}
+
+.plan__main {
+  margin-top: 32px;
+}
+
+.plan__upper-buttons {
   display: flex;
-  align-items: center;
-  font-size: 20px;
-  color: black;
-  cursor: pointer;
-  background: none;
-  border: none;
+  gap: 24px;
+  margin-top: 44px;
 }
 
-.test-plan__dropdown {
-  overflow: initial;
-}
-
-.test-plan__select-all {
-  color: var(--primary900);
-}
-
-.test-plan__dropdown-toggle {
-  padding: 6px 7px 10px;
-  cursor: pointer;
-  background-color: var(--neutrals100);
-  border: none;
-  border-radius: 24px;
-}
-
-.test-plan__dropdown-toggle:hover {
-  background-color: #c7c7c7;
-}
-
-.test-plan__dropdown-toggle.is-open {
-  background-color: #c7c7c7;
+.plan__add-cases {
+  padding: 10px 12px;
 }

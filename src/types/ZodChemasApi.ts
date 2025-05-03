@@ -88,3 +88,47 @@ export const AddTestPlanRequest = z.object({
   projectId: z.string(),
   testCases: z.array(z.string()).optional(),
 });
+
+export const AddTestPlanResponse = z.object({
+  addedEntityId: z.string(),
+});
+
+export const GetAllTestPlansRequest = z.object({
+  projectId: z.string(),
+});
+
+export const TestPlanResponseSchema = z.object({
+  testPlanId: z.string(),
+  testPlanName: z.string(),
+  testCases: z.array(
+    z.object({
+      caseName: z.string(),
+      caseId: z.string(),
+    }),
+  ),
+});
+
+export const TestPlanWithSuiteIdResponseSchema = z.object({
+  testPlanId: z.string(),
+  testPlanName: z.string(),
+  testCases: z.array(
+    z.object({
+      caseName: z.string(),
+      caseId: z.string(),
+      suiteId: z.string(),
+    }),
+  ),
+});
+
+export const GetAllTestPlansResponse = z.object({
+  testPlans: z.array(TestPlanResponseSchema),
+});
+
+export const GetTestPlanByIdRequest = z.object({
+  projectId: z.string(),
+  testPlanId: z.string(),
+});
+
+export const GetTestPlanByIdResponse = z.object({
+  testPlan: TestPlanWithSuiteIdResponseSchema,
+});

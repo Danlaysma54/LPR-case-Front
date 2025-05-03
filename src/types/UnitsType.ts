@@ -17,6 +17,12 @@ import {
   GetSuitesByProjectIdResponse,
   RemoveSuiteRequest,
   AddTestPlanRequest,
+  AddTestPlanResponse,
+  GetAllTestPlansRequest,
+  GetAllTestPlansResponse,
+  TestPlanResponseSchema,
+  GetTestPlanByIdRequest,
+  GetTestPlanByIdResponse,
 } from "src/types/ZodChemasApi";
 import {
   AddCaseStepsSchema,
@@ -69,6 +75,19 @@ export type EditCaseRequestType = z.infer<typeof EditCaseRequest>;
 export type EditCaseResponseType = z.infer<typeof EditCaseResponse>;
 
 export type AddTestPlanRequestType = z.infer<typeof AddTestPlanRequest>;
+export type AddTestPlanResponseType = z.infer<typeof AddTestPlanResponse>;
+
+export type GetAllTestPlansRequestType = z.infer<typeof GetAllTestPlansRequest>;
+export type GetAllTestPlansResponseType = z.infer<
+  typeof GetAllTestPlansResponse
+>;
+
+export type TestPlanResponseType = z.infer<typeof TestPlanResponseSchema>;
+
+export type GetTestPlanByIdRequestType = z.infer<typeof GetTestPlanByIdRequest>;
+export type GetTestPlanByIdResponseType = z.infer<
+  typeof GetTestPlanByIdResponse
+>;
 
 export type CheckboxListType = {
   isActiveMainCheckbox: boolean;

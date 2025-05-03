@@ -142,12 +142,15 @@
   font-size: 14px;
 }
 
+.selected-cases-list {
+  border-left: 0.5px solid var(--primary400);
+}
+
 .selected-case {
   display: flex;
   gap: 16px;
   padding-left: 36px;
   margin-top: 20px;
-  border-left: 0.5px solid var(--primary400);
 }
 
 .create-plan__selected-list {
@@ -159,6 +162,7 @@
 
 .selected-suite__name-part {
   display: flex;
+  gap: 8px;
   align-items: center;
   cursor: pointer;
   background-color: #fff;

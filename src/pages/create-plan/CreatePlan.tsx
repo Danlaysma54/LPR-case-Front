@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import BackArrow from "@/assets/svgs/BackArrow";
-import DeleteIcon from "@/assets/svgs/DeleteIcon";
-import DownArrow from "@/assets/svgs/DownArrow";
 import PlusIcon from "@/assets/svgs/PlusIcon";
-import UpArrow from "@/assets/svgs/UpArrow";
 import { mockProjectId } from "@/config/mockData";
 import { getOneLevelSuite } from "@/entites/OneLevel/api/GetOneLevelData";
 import { getAllSuitesByProjectId } from "@/entites/Suites/api/SuiteApi";
+import addTestPlan from "@/entites/TestPlan/api/TestPlanApi";
 import { UseFormField } from "@/shared/hooks/UseFormField";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
@@ -19,6 +17,7 @@ import { CaseType } from "@/types/UnitsType";
 import SelectCasesModal, {
   GetAllSuitesByProjectIdSuitesType,
 } from "@/widgets/select-cases-modal/SelectCasesModal";
+import SelectedSuitesList from "@/widgets/selected-suites-list/SelectedSuitesList";
 
 const CreatePlan = () => {
   const navigate = useNavigate();
@@ -52,24 +51,10 @@ const CreatePlan = () => {
         );
       }
     });
-  }, [selectedSuites]);
+  }, [casesMap, selectedSuites]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const findSuiteName = (
-    nodes: GetAllSuitesByProjectIdSuitesType[],
-    id: string,
-  ): string | null => {
-    for (const node of nodes) {
-      if (node.suiteId === id) return node.suiteName;
-      if (node.children) {
-        const found = findSuiteName(node.children, id);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
 
   const getSuiteIdForCase = (caseId: string): string | null => {
     for (const [suiteId, cases] of Object.entries(casesMap)) {
@@ -90,6 +75,17 @@ const CreatePlan = () => {
     setSelectedSuites(Array.from(newSuites));
     setSelectedCases(cases);
     closeModal();
+  };
+
+  const createPlan = async () => {
+    const res = await addTestPlan({
+      projectId: mockProjectId,
+      testPlanName: titleField.value,
+      testCases: selectedCases,
+    });
+    if (res.addedEntityId) {
+      navigate(`/plans`);
+    }
   };
 
   return (
@@ -139,61 +135,32 @@ const CreatePlan = () => {
               <PlusIcon /> Add test cases
             </Button>
           </div>
-          <div className="create-plan__selected-list">
-            {selectedSuites.map((suiteId) => {
-              const name = findSuiteName(allSuitesTree, suiteId) || suiteId;
-              const suiteCases = casesMap[suiteId] || [];
-              const shownCases = suiteCases.filter((c) =>
-                selectedCases.includes(c.caseId),
-              );
-              const isExpanded = expandedSuites.has(suiteId);
-              return (
-                <div key={suiteId} className="selected-suite-block">
-                  <button
-                    type="button"
-                    className="selected-suite__name-part"
-                    onClick={() => {
-                      setExpandedSuites((prev) => {
-                        const next = new Set(prev);
-                        if (next.has(suiteId)) next.delete(suiteId);
-                        else next.add(suiteId);
-                        return next;
-                      });
-                    }}
-                  >
-                    {isExpanded ? <UpArrow /> : <DownArrow />}
-                    <div className="selected-suite-title">{name}</div>
-                  </button>
-                  {shownCases.length > 0 && isExpanded ? (
-                    <ul className="selected-cases-list">
-                      {shownCases.map((c) => (
-                        <li key={c.caseId} className="selected-case">
-                          <button
-                            className="delete-case__button"
-                            type="button"
-                            onClick={() => {
-                              setSelectedCases((prev) =>
-                                prev.filter((ca) => !(ca === c.caseId)),
-                              );
-                            }}
-                          >
-                            <DeleteIcon color={"#C03744"} />
-                          </button>
-                          <p className="selected-case-name">{c.caseName}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
+          <SelectedSuitesList
+            selectedSuites={selectedSuites}
+            selectedCases={selectedCases}
+            allSuitesTree={allSuitesTree}
+            casesMap={casesMap}
+            expandedSuites={expandedSuites}
+            onToggleSuite={(suiteId) => {
+              setExpandedSuites((prev) => {
+                const next = new Set(prev);
+                if (next.has(suiteId)) next.delete(suiteId);
+                else next.add(suiteId);
+                return next;
+              });
+            }}
+            onRemoveCase={(caseId) => {
+              setSelectedCases((prev) => prev.filter((ca) => ca !== caseId));
+            }}
+          />
         </div>
 
         <div className="create-plan__form-border" />
 
         <div className="create-plan__form-buttons">
-          <Button type="button">Create plan</Button>
+          <Button onClick={createPlan} type="button">
+            Create plan
+          </Button>
           <Button
             type="button"
             className="create-plan__cancel"

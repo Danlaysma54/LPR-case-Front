@@ -7,6 +7,7 @@ import MainScreen from "@/pages/mainscreen/MainScreen";
 import SignIn from "@/pages/sign-in/SignIn";
 import SignUp from "@/pages/sign-up/SignUp";
 import TestPlan from "@/pages/test-plan/TestPlan";
+import TestPlans from "@/pages/test-plans/TestPlans";
 import TestRun from "@/pages/test-run/TestRun";
 import { useAuthRedirect } from "@/shared/hooks/UseAuthRedirect";
 import MainLayout from "@/shared/ui/main-layout/MainLayout";
@@ -69,6 +70,14 @@ function App() {
       />
       <Route
         path="plans"
+        element={
+          <ProtectedRoute>
+            <TestPlans />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="plans/:planId"
         element={
           <ProtectedRoute>
             <TestPlan />

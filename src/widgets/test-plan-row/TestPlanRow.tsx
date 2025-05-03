@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router";
+
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import EditIcon from "@/assets/svgs/EditIcon";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import DropdownMenu, { MenuItem } from "@/shared/ui/dropdown-menu/DropdownMenu";
-import { TestPlanType } from "@/types/UnitsType";
+import { TestPlanResponseType } from "@/types/UnitsType";
 
 type TestPlanRowProps = {
-  testPlan: TestPlanType;
+  testPlan: TestPlanResponseType;
   onEdit: (id: string) => void;
   onRemove: (id: string) => void;
   isActiveCheckbox: boolean;
@@ -17,6 +19,7 @@ const TestPlanRow = ({
   onRemove,
   isActiveCheckbox,
 }: TestPlanRowProps) => {
+  const navigate = useNavigate();
   const menuItems: MenuItem[] = [
     {
       label: (
@@ -25,7 +28,7 @@ const TestPlanRow = ({
           Edit
         </div>
       ),
-      onClick: () => onEdit(testPlan.planId),
+      onClick: () => onEdit(testPlan.testPlanId),
     },
     {
       label: (
@@ -34,18 +37,27 @@ const TestPlanRow = ({
           Delete
         </div>
       ),
-      onClick: () => onRemove(testPlan.planId),
+      onClick: () => onRemove(testPlan.testPlanId),
     },
   ];
   return (
     <div className="test-plan__row">
       <div className="test-plan__cell">
         <Checkbox isActiveMainCheckbox={isActiveCheckbox} />
-        {testPlan.planName}
+        <button
+          className="test-plan__cell-button"
+          onClick={() => navigate(`/plans/${testPlan.testPlanId}`)}
+        >
+          <div className="test-plan__cell">{testPlan.testPlanName}</div>
+        </button>
       </div>
-      <div className="test-plan__cell">{testPlan.createdAt}</div>
-      <div className="test-plan__cell">{testPlan.updatedAt}</div>
-      <div className="test-plan__cell">{testPlan.casesCount} test cases</div>
+      {/*<div className="test-plan__cell">{testPlan.createdAt}</div>*/}
+      {/*<div className="test-plan__cell">{testPlan.updatedAt}</div>*/}
+      <div className="test-plan__cell">Хз, недавно</div>
+      <div className="test-plan__cell">Тоже</div>
+      <div className="test-plan__cell">
+        {testPlan.testCases ? testPlan.testCases.length : 0} test cases
+      </div>
       <div className="test-plan__cell test-plan__dropdown">
         <DropdownMenu
           items={menuItems}
