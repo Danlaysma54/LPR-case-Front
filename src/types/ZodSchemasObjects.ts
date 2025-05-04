@@ -62,11 +62,19 @@ export const EditSuiteSchema = z.object({
   suiteRootId: z.string().min(1),
 });
 
+export const AddCaseStepsSchema = z.object({
+  stepDescription: z.string().min(1),
+  stepData: z.string().min(1),
+  stepResult: z.string().min(1),
+  stepNumber: z.number().min(1),
+});
+
 export const AddCaseSchema = z.object({
   testCaseName: z.string().min(1),
   layerId: z.string().min(1),
   suiteId: z.string().min(1),
   isAutomatedId: z.string().min(1),
+  steps: AddCaseStepsSchema.array().optional(),
 });
 export const EditCaseSchema = z.object({
   testCaseId: z.string().min(1),
@@ -84,4 +92,13 @@ export const LayerSchema = z.object({
 export const AutomationStatusSchema = z.object({
   automationStatusId: z.string().min(1),
   name: z.string().min(1),
+});
+
+export const TestPlanSchema = z.object({
+  projectId: z.string().min(1),
+  planId: z.string().min(1),
+  planName: z.string().min(1),
+  casesCount: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });

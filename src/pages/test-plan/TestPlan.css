@@ -1,0 +1,50 @@
+.plan {
+  padding: 36px 32px;
+}
+
+.plan__header {
+  display: flex;
+  gap: 25px;
+}
+
+.plan__back-button {
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.plan__title {
+  overflow: hidden;
+  font-size: 22px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+}
+
+.plan__info {
+  margin-top: 44px;
+}
+
+.plan__test-cases {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.plan__upper-line {
+  width: 100%;
+  margin-top: 10px;
+  border-bottom: 0.5px solid var(--primary400);
+}
+
+.plan__main {
+  margin-top: 32px;
+}
+
+.plan__upper-buttons {
+  display: flex;
+  gap: 24px;
+  margin-top: 44px;
+}
+
+.plan__add-cases {
+  padding: 10px 12px;
+}

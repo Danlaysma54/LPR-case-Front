@@ -51,7 +51,7 @@ export const AddSuiteRequest = z.object({
 });
 
 export const AddSuiteResponse = z.object({
-  suiteId: z.string().min(32),
+  addedEntityId: z.string().min(32),
 });
 
 export const AddCaseRequest = z.object({
@@ -59,7 +59,7 @@ export const AddCaseRequest = z.object({
   projectId: z.string(),
 });
 export const AddCaseResponse = z.object({
-  caseId: z.string().min(32),
+  addedEntityId: z.string().min(32),
 });
 
 export const EditSuiteRequest = z.object({
@@ -81,4 +81,54 @@ export const EditCaseRequest = z.object({
 });
 export const EditCaseResponse = z.object({
   case: CaseSchema,
+});
+
+export const AddTestPlanRequest = z.object({
+  testPlanName: z.string().min(1),
+  projectId: z.string(),
+  testCases: z.array(z.string()).optional(),
+});
+
+export const AddTestPlanResponse = z.object({
+  addedEntityId: z.string(),
+});
+
+export const GetAllTestPlansRequest = z.object({
+  projectId: z.string(),
+});
+
+export const TestPlanResponseSchema = z.object({
+  testPlanId: z.string(),
+  testPlanName: z.string(),
+  testCases: z.array(
+    z.object({
+      caseName: z.string(),
+      caseId: z.string(),
+    }),
+  ),
+});
+
+export const TestPlanWithSuiteIdResponseSchema = z.object({
+  testPlanId: z.string(),
+  testPlanName: z.string(),
+  testCases: z.array(
+    z.object({
+      caseName: z.string(),
+      caseId: z.string(),
+      suiteId: z.string(),
+    }),
+  ),
+});
+
+export const GetAllTestPlansResponse = z.object({
+  testPlans: z.array(TestPlanResponseSchema),
+});
+
+export const GetTestPlanByIdRequest = z.object({
+  projectId: z.string(),
+  testPlanId: z.string(),
+});
+
+export const GetTestPlanByIdResponse = z.object({
+  testPlan: TestPlanWithSuiteIdResponseSchema,
 });

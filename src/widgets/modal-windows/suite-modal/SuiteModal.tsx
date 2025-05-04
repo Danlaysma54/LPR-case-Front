@@ -228,9 +228,9 @@ const SuiteModal = ({
       projectId: mockProjectId,
       suite: newSuite,
     }).then((res) => {
-      if (res && "suiteId" in res) {
-        if (res.suiteId) {
-          newSuite.suiteId = res.suiteId;
+      if (res && "addedEntityId" in res) {
+        if (res.addedEntityId) {
+          newSuite.suiteId = res.addedEntityId;
         }
         rerenderSuites(newSuite);
         closeAddSuiteModal();

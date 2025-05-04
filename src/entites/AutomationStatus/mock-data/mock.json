@@ -1,11 +1,11 @@
 {
   "data": [
     {
-      "automationStatusId": "c47fa783-f165-4b33-b934-780e59261b2f",
+      "automationStatusId": "164c58e7-48e1-4ec7-b8aa-977ddd4bcce0",
       "name": "Manual"
     },
     {
-      "automationStatusId": "90518baa-ca2d-4272-8dba-41703443791f",
+      "automationStatusId": "9b9d9dde-de25-4c57-b93a-2c71b2a9be2c",
       "name": "Automated"
     }
   ]

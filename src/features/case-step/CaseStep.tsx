@@ -1,12 +1,15 @@
 import "./CaseStep.css";
+import { useEffect } from "react";
+
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import PlusIcon from "@/assets/svgs/PlusIcon";
 import DropdownMenu, { MenuItem } from "@/shared/ui/dropdown-menu/DropdownMenu";
 import Input from "@/shared/ui/input/Input";
+import { AddCaseStepsType } from "@/types/UnitsType";
 
 type CaseStepProps = {
   index: number;
-  step: { stepAction: string; data: string; stepResult: string };
+  step: AddCaseStepsType;
   onChange: (index: number, field: string, value: string) => void;
   onRemove: (index: number) => void;
   onCreate: () => void;
@@ -39,21 +42,23 @@ const CaseStep = ({
       onClick: () => onRemove(index),
     },
   ];
-
+  useEffect(() => {
+    step.stepNumber = index + 1;
+  }, []);
   return (
     <div className="case-step">
       <div className="case-step__index">{index + 1}</div>
       <Input
         type="text"
-        value={step.stepAction}
-        onChange={(e) => onChange(index, "stepAction", e.target.value)}
+        value={step.stepDescription}
+        onChange={(e) => onChange(index, "stepDescription", e.target.value)}
         placeholder="Step Action"
         className="case-step__input"
       />
       <Input
         type="text"
-        value={step.data}
-        onChange={(e) => onChange(index, "data", e.target.value)}
+        value={step.stepData}
+        onChange={(e) => onChange(index, "stepData", e.target.value)}
         placeholder="Data"
         className="case-step__input"
       />

@@ -16,14 +16,23 @@ import {
   GetSuitesByProjectIdRequest,
   GetSuitesByProjectIdResponse,
   RemoveSuiteRequest,
+  AddTestPlanRequest,
+  AddTestPlanResponse,
+  GetAllTestPlansRequest,
+  GetAllTestPlansResponse,
+  TestPlanResponseSchema,
+  GetTestPlanByIdRequest,
+  GetTestPlanByIdResponse,
 } from "src/types/ZodChemasApi";
 import {
+  AddCaseStepsSchema,
   AutomationStatusSchema,
   CaseSchema,
   LayerSchema,
   ProjectSchema,
   SuiteContentSchema,
   SuiteSchema,
+  TestPlanSchema,
 } from "src/types/ZodSchemasObjects";
 
 export type SuiteType = z.infer<typeof SuiteSchema>;
@@ -31,6 +40,7 @@ export type CaseType = z.infer<typeof CaseSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type LayerType = z.infer<typeof LayerSchema>;
 export type AutomationStatusType = z.infer<typeof AutomationStatusSchema>;
+export type TestPlanType = z.infer<typeof TestPlanSchema>;
 
 export type GetOneLevelDataRequestType = z.infer<typeof GetOneLevelDataRequest>;
 export type GetOneLevelDataResponseType = z.infer<
@@ -57,8 +67,32 @@ export type EditSuiteResponseType = z.infer<typeof EditSuiteResponse>;
 
 export type RemoveSuiteRequestType = z.infer<typeof RemoveSuiteRequest>;
 
+export type AddCaseStepsType = z.infer<typeof AddCaseStepsSchema>;
 export type AddCaseRequestType = z.infer<typeof AddCaseRequest>;
 export type AddCaseResponseType = z.infer<typeof AddCaseResponse>;
 
 export type EditCaseRequestType = z.infer<typeof EditCaseRequest>;
 export type EditCaseResponseType = z.infer<typeof EditCaseResponse>;
+
+export type AddTestPlanRequestType = z.infer<typeof AddTestPlanRequest>;
+export type AddTestPlanResponseType = z.infer<typeof AddTestPlanResponse>;
+
+export type GetAllTestPlansRequestType = z.infer<typeof GetAllTestPlansRequest>;
+export type GetAllTestPlansResponseType = z.infer<
+  typeof GetAllTestPlansResponse
+>;
+
+export type TestPlanResponseType = z.infer<typeof TestPlanResponseSchema>;
+
+export type GetTestPlanByIdRequestType = z.infer<typeof GetTestPlanByIdRequest>;
+export type GetTestPlanByIdResponseType = z.infer<
+  typeof GetTestPlanByIdResponse
+>;
+
+export type CheckboxListType = {
+  isActiveMainCheckbox: boolean;
+  checkboxes: {
+    id: string;
+    isChecked: boolean;
+  }[];
+};
