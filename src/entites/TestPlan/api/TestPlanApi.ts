@@ -2,6 +2,7 @@ import { api } from "@/shared/api/fetcher";
 import {
   AddTestPlanRequestType,
   AddTestPlanResponseType,
+  EditTestPlanRequestType,
   GetAllTestPlansRequestType,
   GetAllTestPlansResponseType,
   GetTestPlanByIdRequestType,
@@ -31,4 +32,19 @@ export function getTestPlanById(
   const url = `/${req.projectId}/testPlans/${req.testPlanId}`;
   return api.get(url);
 }
+
+export async function editTestPlan(req: EditTestPlanRequestType) {
+  const url = `/${req.projectId}/editTestPlan`;
+  return api.patch(url, {
+    testPlanId: req.testPlanId,
+    testPlanName: req.testPlanName,
+    testCases: req.testCases,
+  });
+}
+
+export async function deleteTestPlan(projectId: string, testPlanId: string) {
+  const url = `/${projectId}/${testPlanId}/deleteTestPlan`;
+  await api.delete(url);
+}
+
 export default addTestPlan;

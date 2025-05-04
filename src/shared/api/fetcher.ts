@@ -46,7 +46,9 @@ export const api = {
     return response.json();
   },
   delete: async (url: string) => {
-    const response = await fetchWithAuth(url, { method: "DELETE" });
-    return response.json();
+    await fetchWithAuth(url, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
   },
 };

@@ -7,6 +7,7 @@ import {
   EditCaseSchema,
   EditSuiteSchema,
   ProjectSchema,
+  StepSchema,
   SuiteDTOSchema,
   SuiteSchema,
 } from "src/types/ZodSchemasObjects";
@@ -131,4 +132,20 @@ export const GetTestPlanByIdRequest = z.object({
 
 export const GetTestPlanByIdResponse = z.object({
   testPlan: TestPlanWithSuiteIdResponseSchema,
+});
+
+export const EditTestPlanRequest = z.object({
+  testPlanId: z.string(),
+  testPlanName: z.string().min(1),
+  projectId: z.string(),
+  testCases: z.array(z.string()).optional(),
+});
+
+export const GetTestCaseByIdResponse = z.object({
+  testCaseId: z.string(),
+  testCaseName: z.string(),
+  layer: z.string(),
+  isAutomated: z.string(),
+  suiteId: z.string(),
+  step: z.array(StepSchema),
 });

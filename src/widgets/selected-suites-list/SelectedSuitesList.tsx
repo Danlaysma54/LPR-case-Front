@@ -3,6 +3,7 @@ import React from "react";
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import DownArrow from "@/assets/svgs/DownArrow";
 import UpArrow from "@/assets/svgs/UpArrow";
+import CaseInPlan from "@/shared/ui/case-in-plan/CaseInPlan";
 import { CaseType } from "@/types/UnitsType";
 import { GetAllSuitesByProjectIdSuitesType } from "@/widgets/select-cases-modal/SelectCasesModal";
 
@@ -44,6 +45,7 @@ const SelectedSuitesList: React.FC<SelectedSuitesListProps> = ({
       {selectedSuites.map((suiteId) => {
         const name = findSuiteName(allSuitesTree, suiteId) || suiteId;
         const suiteCases = casesMap[suiteId] || [];
+        if (suiteCases.length === 0) return null;
         const shownCases = suiteCases.filter((c) =>
           selectedCases.includes(c.caseId),
         );
@@ -77,6 +79,12 @@ const SelectedSuitesList: React.FC<SelectedSuitesListProps> = ({
           </div>
         );
       })}
+      <ul className="selected-cases-only-list">
+        {selectedCases.map((c) => {
+          if (selectedSuites.includes(c)) return null;
+          return <CaseInPlan caseId={c} onRemoveCase={onRemoveCase} key={c} />;
+        })}
+      </ul>
     </div>
   );
 };
