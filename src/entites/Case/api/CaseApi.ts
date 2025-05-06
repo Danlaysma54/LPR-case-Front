@@ -4,6 +4,7 @@ import {
   AddCaseResponseType,
   EditCaseRequestType,
   EditCaseResponseType,
+  GetTestCaseByIdResponseType,
 } from "@/types/UnitsType";
 
 export async function addCase(
@@ -23,4 +24,12 @@ export async function editCase(
 export async function deleteCase(projectId: string, caseId: string) {
   const url = `/${projectId}/${caseId}/deleteTestCase`;
   await api.delete(url);
+}
+
+export async function getCaseById(
+  projectId: string,
+  caseId: string,
+): Promise<GetTestCaseByIdResponseType> {
+  const url = `/${projectId}/${caseId}/getTestCase`;
+  return await api.get(url);
 }

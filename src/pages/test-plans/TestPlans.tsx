@@ -6,36 +6,62 @@ import PlusIcon from "@/assets/svgs/PlusIcon";
 import { mockProjectId } from "@/config/mockData";
 import { getAllTestPlans } from "@/entites/TestPlan/api/TestPlanApi";
 import Button from "@/shared/ui/button/Button";
+import ModalWindow from "@/shared/ui/modal-window/ModalWindow";
 import Search from "@/shared/ui/search/Search";
 import { TestPlanResponseType } from "@/types/UnitsType";
 
 import "./TestPlans.css";
+import DeletePlanModal from "@/widgets/delete-plan-modal/DeletePlanModal";
 import TestPlanRow from "@/widgets/test-plan-row/TestPlanRow";
 
 const TestPlans = () => {
   const [testPlans, setTestPlans] = useState<TestPlanResponseType[]>([]);
   const [isActiveCheckbox, setIsActiveCheckbox] = useState(false);
+  const [testPlanIdForDelete, setTestPlanIdForDelete] = useState<string | null>(
+    null,
+  );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
+
+  const getTestPlans = () => {
     getAllTestPlans({ projectId: mockProjectId }).then((res) =>
       setTestPlans(res.testPlans),
     );
+  };
+
+  useEffect(() => {
+    getTestPlans();
   }, []);
+
+  const onOpenDeleteModal = (id: string) => {
+    setTestPlanIdForDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const onCloseDeleteModal = () => {
+    setTestPlanIdForDelete(null);
+    setIsDeleteModalOpen(false);
+    getTestPlans();
+  };
 
   const toCreatePlan = () => {
     navigate("/create-plan");
   };
 
   const onEdit = (id: string) => {
-    console.log("Edit", id);
-    //TODO:: Edit test plan
+    navigate(`/plans/${id}`);
   };
   const onRemove = (id: string) => {
-    console.log("Remove", id);
-    //TODO:: Remove test plan
+    onOpenDeleteModal(id);
   };
   return (
     <div className="test-plan">
+      <ModalWindow isOpened={isDeleteModalOpen} onClose={onCloseDeleteModal}>
+        <DeletePlanModal
+          onClose={onCloseDeleteModal}
+          testPlanId={testPlanIdForDelete}
+        />
+      </ModalWindow>
       <div className="test-plan__header">
         <h1 className="test-plan__title">Test plans</h1>
         <div className="test-plan__interact">

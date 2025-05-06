@@ -174,3 +174,12 @@
   background-color: white;
   border: none;
 }
+
+.create-plan__name-error {
+  position: absolute;
+  margin-top: 75px;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--error100);
+}

@@ -1,4 +1,3 @@
-// CreatePlan.tsx
 import "./CreatePlan.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -31,7 +30,7 @@ const CreatePlan = () => {
   >([]);
   const [casesMap, setCasesMap] = useState<Record<string, CaseType[]>>({});
   const [expandedSuites, setExpandedSuites] = useState<Set<string>>(new Set());
-
+  const [nameError, setNameError] = useState<boolean>(false);
   useEffect(() => {
     getAllSuitesByProjectId({ projectId: mockProjectId }).then((r) =>
       setAllSuitesTree(r.children),
@@ -56,6 +55,10 @@ const CreatePlan = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  useEffect(() => {
+    setNameError(false);
+  }, [titleField.value]);
+
   const getSuiteIdForCase = (caseId: string): string | null => {
     for (const [suiteId, cases] of Object.entries(casesMap)) {
       if (cases.some((c) => c.caseId === caseId)) return suiteId;
@@ -78,6 +81,10 @@ const CreatePlan = () => {
   };
 
   const createPlan = async () => {
+    if (titleField.value.length < 3) {
+      setNameError(true);
+      return;
+    }
     const res = await addTestPlan({
       projectId: mockProjectId,
       testPlanName: titleField.value,
@@ -125,6 +132,11 @@ const CreatePlan = () => {
               onChange={titleField.onChange}
               placeholder="For example: Authorization"
             />
+            {nameError ? (
+              <div className="create-plan__name-error">
+                The name must be at least 3 characters long.
+              </div>
+            ) : null}
           </div>
           <div className="create-plan__form-info">
             <Button

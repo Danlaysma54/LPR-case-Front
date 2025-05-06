@@ -1,0 +1,15 @@
+.delete-plan__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.delete-plan__buttons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 44px;
+}

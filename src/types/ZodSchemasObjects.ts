@@ -102,3 +102,11 @@ export const TestPlanSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
 });
+
+export const StepSchema = z.object({
+  testStepId: z.string().min(1),
+  stepDescription: z.string().min(1),
+  stepData: z.string().min(1),
+  stepResult: z.string().min(1),
+  stepNumber: z.number().min(1),
+});
