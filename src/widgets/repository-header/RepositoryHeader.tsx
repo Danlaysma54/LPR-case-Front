@@ -251,7 +251,7 @@ const RepositoryHeader = ({ repositoryName }: RepositoryHeaderProps) => {
             className="repository-header__button-leave"
             onClick={handleLeave}
           >
-            Ливнуть с катки
+            Выйти из аккаунта
           </Button>
         </div>
       </div>

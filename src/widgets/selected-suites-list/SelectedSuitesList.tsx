@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import DeleteIcon from "@/assets/svgs/DeleteIcon";
 import DownArrow from "@/assets/svgs/DownArrow";
@@ -26,6 +26,8 @@ const SelectedSuitesList: React.FC<SelectedSuitesListProps> = ({
   onToggleSuite,
   onRemoveCase,
 }) => {
+  const [renderedCases, setRenderedCases] = useState<Set<string>>(new Set());
+
   const findSuiteName = (
     nodes: GetAllSuitesByProjectIdSuitesType[],
     id: string,
@@ -39,6 +41,23 @@ const SelectedSuitesList: React.FC<SelectedSuitesListProps> = ({
     }
     return null;
   };
+
+  useEffect(() => {
+    selectedSuites.map((suiteId) => {
+      const suiteCases = casesMap[suiteId] || [];
+      if (suiteCases.length === 0) return null;
+      const shownCases = suiteCases.filter((c) =>
+        selectedCases.includes(c.caseId),
+      );
+      setRenderedCases((prev) => {
+        const updated = new Set(prev);
+        for (const c of shownCases) {
+          updated.add(c.caseId);
+        }
+        return updated;
+      });
+    });
+  }, [selectedSuites]);
 
   return (
     <div className="create-plan__selected-list">
@@ -81,7 +100,7 @@ const SelectedSuitesList: React.FC<SelectedSuitesListProps> = ({
       })}
       <ul className="selected-cases-only-list">
         {selectedCases.map((c) => {
-          if (selectedSuites.includes(c)) return null;
+          if (renderedCases && renderedCases?.has(c)) return null;
           return <CaseInPlan caseId={c} onRemoveCase={onRemoveCase} key={c} />;
         })}
       </ul>
