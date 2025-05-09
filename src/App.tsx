@@ -4,6 +4,7 @@ import { getTokenFromStorage } from "@/lib/get-token-from-storage";
 import CreateCase from "@/pages/create-case/CreateCase";
 import CreatePlan from "@/pages/create-plan/CreatePlan";
 import MainScreen from "@/pages/mainscreen/MainScreen";
+import RunPage from "@/pages/run-page/RunPage";
 import SignIn from "@/pages/sign-in/SignIn";
 import SignUp from "@/pages/sign-up/SignUp";
 import TestPlan from "@/pages/test-plan/TestPlan";
@@ -89,6 +90,14 @@ function App() {
         element={
           <ProtectedRoute>
             <TestRun />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="runs/:runId"
+        element={
+          <ProtectedRoute>
+            <RunPage />
           </ProtectedRoute>
         }
       />

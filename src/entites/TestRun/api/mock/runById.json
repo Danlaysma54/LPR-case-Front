@@ -1,0 +1,153 @@
+{
+  "testRunId": 1,
+  "testRunName": "Test Run 1",
+  "status": "End",
+  "suites": [
+    {
+      "suiteId": 1,
+      "suiteName": "Suite 1",
+      "testCases": [
+        {
+          "testCaseId": 1,
+          "testCaseName": "Test Case 1",
+          "status": "Passed",
+          "statusColor": "#28B95E",
+          "testSteps": [
+            {
+              "testStepId": 1,
+              "testStepName": "Test Step 1",
+              "status": "Passed",
+              "statusColor": "#28B95E"
+            },
+            {
+              "testStepId": 2,
+              "testStepName": "Test Step 2",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            },
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            }
+          ]
+        },
+        {
+          "testCaseId": 2,
+          "testCaseName": "Test Case 2",
+          "status": "Blocked",
+          "statusColor": "#FFC300",
+          "testSteps": [
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Skipped",
+              "statusColor": "#B5B5B5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "suiteId": 2,
+      "suiteName": "Suite 2",
+      "testCases": [
+        {
+          "testCaseId": 3,
+          "testCaseName": "Test Case 3",
+          "status": "Untested",
+          "statusColor": "#7F13BE",
+          "testSteps": [
+            {
+              "testStepId": 1,
+              "testStepName": "Test Step 1",
+              "status": "Passed",
+              "statusColor": "#28B95E"
+            },
+            {
+              "testStepId": 2,
+              "testStepName": "Test Step 2",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            },
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            }
+          ]
+        },
+        {
+          "testCaseId": 10,
+          "testCaseName": "Test Case 55",
+          "status": "Passed",
+          "statusColor": "#28B95E",
+          "testSteps": [
+            {
+              "testStepId": 1,
+              "testStepName": "Test Step 1",
+              "status": "Passed",
+              "statusColor": "#28B95E"
+            },
+            {
+              "testStepId": 2,
+              "testStepName": "Test Step 2",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            },
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Failed",
+              "statusColor": "#F04B6A"
+            }
+          ]
+        },
+        {
+          "testCaseId": 4,
+          "testCaseName": "Test Case 4",
+          "status": "Blocked",
+          "statusColor": "#FFC300",
+          "testSteps": [
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Skipped",
+              "statusColor": "#B5B5B5"
+            }
+          ]
+        },
+        {
+          "testCaseId": 5,
+          "testCaseName": "Test Case 5",
+          "status": "Blocked",
+          "statusColor": "#FFC300",
+          "testSteps": [
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Skipped",
+              "statusColor": "#B5B5B5"
+            }
+          ]
+        },
+        {
+          "testCaseId": 6,
+          "testCaseName": "Test case 66",
+          "status": "Passed",
+          "statusColor": "#28B95E",
+          "testSteps": [
+            {
+              "testStepId": 3,
+              "testStepName": "Test Step 3",
+              "status": "Skipped",
+              "statusColor": "#B5B5B5"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

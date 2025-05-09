@@ -1,0 +1,68 @@
+[
+  {
+    "testRunId": "1",
+    "testRunName": "Test Run 1",
+    "status": "In progress",
+    "testStatusesCount": [
+      {
+        "statusName": "passed",
+        "statusColor": "#28B95E",
+        "count": 2
+      },
+      {
+        "statusName": "failed",
+        "statusColor": "#F04B6A",
+        "count": 1
+      },
+      {
+        "statusName": "blocked",
+        "statusColor": "#FFC300",
+        "count": 1
+      },
+      {
+        "statusName": "skipped",
+        "statusColor": "#B5B5B5",
+        "count": 2
+      },
+      {
+        "statusName": "invalid",
+        "statusColor": "#7F13BE",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "testRunId": 2,
+    "testRunName": "Test Run 2",
+    "status": "End",
+    "testStatusesCount": [
+      {
+        "statusName": "passed",
+        "statusColor": "#28B95E",
+        "count": 5
+      },
+      {
+        "statusName": "failed",
+        "statusColor": "#F04B6A",
+        "count": 1
+      },
+      {
+        "statusName": "blocked",
+        "statusColor": "#FFC300",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "testRunId": "3",
+    "testRunName": "Test Run 3",
+    "status": "Not started",
+    "testStatusesCount": [
+      {
+        "statusName": "skipped",
+        "statusColor": "#747474",
+        "count": 5
+      }
+    ]
+  }
+]
