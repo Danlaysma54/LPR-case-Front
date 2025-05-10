@@ -149,3 +149,56 @@ export const GetTestCaseByIdResponse = z.object({
   suiteId: z.string(),
   step: z.array(StepSchema),
 });
+
+export const CaseStatusSchema = z.object({
+  statusName: z.string(),
+  statusColor: z.string(),
+  count: z.number(),
+});
+
+export const GetAllTestRunsResponse = z.object({
+  testRunId: z.string().min(1),
+  testRunName: z.string().min(1),
+  status: z.string(),
+  testStatusesCount: z.array(CaseStatusSchema),
+});
+
+export const GetTestRunByIdResponse = z.object({
+  testRunId: z.string().min(1),
+  testRunName: z.string().min(1),
+  status: z.string(),
+  suites: z.array(
+    z.object({
+      suiteId: z.string(),
+      suiteName: z.string().min(1),
+      testCases: z.array(
+        z.object({
+          testCaseId: z.string().min(1),
+          testCaseName: z.string().min(1),
+          status: z.string(),
+          statusColor: z.string(),
+          testSteps: z.array(
+            z.object({
+              testStepId: z.string().min(1),
+              testStepName: z.string().min(1),
+              expectedResult: z.string().min(1),
+              status: z.string(),
+              statusColor: z.string(),
+            }),
+          ),
+        }),
+      ),
+    }),
+  ),
+});
+
+export const GetTestStatusesResponse = z.object({
+  statuses: z.array(
+    z.object({
+      statusId: z.string(),
+      statusName: z.string(),
+      color: z.string(),
+      svg: z.string(),
+    }),
+  ),
+});

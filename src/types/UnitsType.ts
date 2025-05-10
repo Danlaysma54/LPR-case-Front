@@ -25,6 +25,9 @@ import {
   GetTestPlanByIdResponse,
   EditTestPlanRequest,
   GetTestCaseByIdResponse,
+  GetAllTestRunsResponse,
+  GetTestRunByIdResponse,
+  GetTestStatusesResponse,
 } from "src/types/ZodChemasApi";
 import {
   AddCaseStepsSchema,
@@ -95,6 +98,12 @@ export type EditTestPlanRequestType = z.infer<typeof EditTestPlanRequest>;
 
 export type GetTestCaseByIdResponseType = z.infer<
   typeof GetTestCaseByIdResponse
+>;
+
+export type GetAllTestRunsResponseType = z.infer<typeof GetAllTestRunsResponse>;
+export type GetTestRunByIdResponseType = z.infer<typeof GetTestRunByIdResponse>;
+export type GetTestStatusesResponseType = z.infer<
+  typeof GetTestStatusesResponse
 >;
 
 export type CheckboxListType = {

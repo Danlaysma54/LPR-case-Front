@@ -1,3 +1,76 @@
-.test-run {
+.test-run__header {
+  padding: 32px;
+  font-size: 24px;
+  font-weight: 500;
+  background-color: var(--background);
+}
+
+.test-run__content {
   display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 24px 22px;
+}
+
+.test-run__checkbox[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  cursor: pointer;
+  background: white;
+  border: 3px solid var(--primary400);
+  border-radius: 2px;
+}
+
+.test-run__row {
+  display: grid;
+  grid-template-columns: 0.05fr 1fr 1fr 1fr;
+  gap: 6px;
+  align-items: center;
+}
+
+.test-run__cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 16px;
+  color: var(--primary1000);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.test-run__checkbox[type="checkbox"]:checked {
+  background: var(--accent2)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10' fill='none'%3E%3Cpath d='M4 9.4L0 5.4L1.4 4L4 6.6L10.6 0L12 1.4L4 9.4Z' fill='white'/%3E%3C/svg%3E")
+    no-repeat center;
+  border-color: var(--accent2);
+}
+
+.test-run__cell-button {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+
+.test-run__status {
+  display: flex;
+  justify-content: center;
+  width: 108px;
+  padding: 2px;
+  color: white;
+  border-radius: 16px;
+}
+
+.test-run__bar {
+  gap: 0;
+  width: 393px;
+  height: 20px;
+  border-radius: 16px;
+}
+
+.test-run__bar-item {
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  color: white;
 }

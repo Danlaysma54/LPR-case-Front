@@ -1,0 +1,42 @@
+.selected-cases-list__line-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.selected-cases-list__line {
+  width: 18px;
+  height: 1.8px;
+  background-color: var(--primary400);
+}
+
+.selected-cases-list__status {
+  width: 87px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  color: white;
+  text-align: center;
+  border-radius: 16px;
+}
+
+.selected-case-title {
+  margin-left: 48px;
+  font-size: 16px;
+  color: var(--primary1000);
+}
+
+.selected-cases-upper-side {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected-suite__bar {
+  display: flex;
+  width: 230px;
+  height: 10px;
+}
+
+.selected-case__title_wrapper {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
