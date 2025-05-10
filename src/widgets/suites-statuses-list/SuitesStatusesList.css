@@ -20,6 +20,7 @@
 
 .selected-case-title {
   margin-left: 48px;
+  font-size: 16px;
   color: var(--primary1000);
 }
 
@@ -32,4 +33,10 @@
   display: flex;
   width: 230px;
   height: 10px;
+}
+
+.selected-case__title_wrapper {
+  cursor: pointer;
+  background-color: white;
+  border: none;
 }

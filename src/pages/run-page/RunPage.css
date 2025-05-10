@@ -55,5 +55,6 @@
 }
 
 .run-page__label {
+  font-size: 30px;
   color: var(--primary1000);
 }

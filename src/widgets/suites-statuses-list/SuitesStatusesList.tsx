@@ -13,6 +13,13 @@ export interface StatusCaseType {
   caseName: string;
   status: string;
   statusColor: string;
+  testSteps: {
+    testStepId: string;
+    testStepName: string;
+    expectedResult: string;
+    status: string;
+    statusColor: string;
+  }[];
 }
 
 interface SelectedSuitesListProps {
@@ -23,6 +30,7 @@ interface SelectedSuitesListProps {
   expandedSuites: Set<string>;
   onToggleSuite: (suiteId: string) => void;
   isActiveMainCheckbox: boolean;
+  onModalOpen: (testCase: StatusCaseType) => void;
 }
 
 export function calculateColorsForSuite(cases: StatusCaseType[]): {
@@ -66,6 +74,7 @@ const SelectedStatusesList: React.FC<SelectedSuitesListProps> = ({
   expandedSuites,
   onToggleSuite,
   isActiveMainCheckbox,
+  onModalOpen,
 }) => {
   const findSuiteName = (nodes: RunSuitesType[], id: string): string | null => {
     for (const node of nodes) {
@@ -133,7 +142,12 @@ const SelectedStatusesList: React.FC<SelectedSuitesListProps> = ({
                     >
                       {c.status}
                     </div>
-                    <p className="selected-case-title">{c.caseName}</p>
+                    <button
+                      className="selected-case__title_wrapper"
+                      onClick={() => onModalOpen(c)}
+                    >
+                      <p className="selected-case-title">{c.caseName}</p>{" "}
+                    </button>
                   </li>
                 ))}
               </ul>

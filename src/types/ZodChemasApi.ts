@@ -181,12 +181,24 @@ export const GetTestRunByIdResponse = z.object({
             z.object({
               testStepId: z.string().min(1),
               testStepName: z.string().min(1),
+              expectedResult: z.string().min(1),
               status: z.string(),
               statusColor: z.string(),
             }),
           ),
         }),
       ),
+    }),
+  ),
+});
+
+export const GetTestStatusesResponse = z.object({
+  statuses: z.array(
+    z.object({
+      statusId: z.string(),
+      statusName: z.string(),
+      color: z.string(),
+      svg: z.string(),
     }),
   ),
 });

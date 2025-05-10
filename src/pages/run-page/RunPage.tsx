@@ -17,6 +17,7 @@ import BackArrow from "@/assets/svgs/BackArrow";
 import { getTestRunByIdMock } from "@/entites/TestRun/api/TestRunMock";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { GetTestRunByIdResponseType } from "@/types/UnitsType";
+import RunStatsMenu from "@/widgets/run-stats-menu/RunStatsMenu";
 import SelectedStatusesList, {
   calculateColorsForSuite,
   StatusCaseType,
@@ -37,7 +38,7 @@ const centerTextPlugin: Plugin = {
     const fontSize = (height / 114).toFixed(2);
     ctx.font = `${fontSize}em sans-serif`;
     ctx.textBaseline = "middle";
-    const text = chart.config.options.plugins?.centerText?.text || "";
+    const text = chart?.config?.options?.plugins?.centerText?.text || "";
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
     const textY = height / 2;
     ctx.fillText(text, textX, textY);
@@ -62,7 +63,16 @@ const RunPage = () => {
     data: ChartData<"doughnut">;
     options: ChartOptions<"doughnut">;
   } | null>(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [openedTestCase, setOpenedTestCase] = useState<StatusCaseType>();
+  const onCloseModal = () => {
+    setIsOpenModal(false);
+  };
 
+  const onOpenModal = (testCase: StatusCaseType) => {
+    setOpenedTestCase(testCase);
+    setIsOpenModal(true);
+  };
   useEffect(() => {
     getTestRunByIdMock().then((res) => {
       setTestRun(res);
@@ -81,6 +91,7 @@ const RunPage = () => {
             caseName: testCase.testCaseName,
             status: testCase.status,
             statusColor: testCase.statusColor,
+            testSteps: testCase.testSteps,
           });
           cases.push(testCase.testCaseId);
         }
@@ -108,6 +119,7 @@ const RunPage = () => {
             caseName: el.testCaseName,
             status: el.status,
             statusColor: el.statusColor,
+            testSteps: el.testSteps,
           };
         }),
       );
@@ -162,6 +174,9 @@ const RunPage = () => {
 
   return (
     <div className="run-page">
+      {isOpenModal ? (
+        <RunStatsMenu onClose={onCloseModal} testCase={openedTestCase} />
+      ) : null}
       <div className="run-page__left-side">
         <div className="run-page__header">
           <div className="run-page__header-navigation">
@@ -195,6 +210,7 @@ const RunPage = () => {
               expandedSuites={expandedSuites}
               onToggleSuite={onToggleSuite}
               isActiveMainCheckbox={mainCheckbox}
+              onModalOpen={onOpenModal}
             />
           ) : null}
         </div>
